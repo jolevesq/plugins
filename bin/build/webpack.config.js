@@ -8,10 +8,11 @@ const pluginList = {
     enhancedTable: path.join(SOURCE_PATH, 'enhancedTable'),
     areasOfInterest: path.join(SOURCE_PATH, 'areasOfInterest'),
     backToCart: path.join(SOURCE_PATH, 'backToCart'),
-    coordInfo: path.join(SOURCE_PATH, 'coordInfo')
+    coordInfo: path.join(SOURCE_PATH, 'coordInfo'),
+    customPrint: path.join(SOURCE_PATH, 'customPrint')
 };
 
-const hasLoader = ['enhancedTable'];
+const hasLoader = ['enhancedTable', 'customPrint'];
 
 module.exports = function(env = {}) {
     const config = {

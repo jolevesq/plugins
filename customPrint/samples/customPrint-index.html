@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width,initial-scale=1" name="viewport" />
+        <title>Plugin: Custom Print</title>
+
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .myMap {
+                height: 100%;
+            }
+        </style>
+
+        <link rel="stylesheet" href="/rv-styles.css" />
+        <script src="../customPrint.js"></script>
+        <link rel="stylesheet" href="../customPrint.css" />
+    </head>
+
+    <body>
+        <div
+            class="myMap"
+            id="customPrintMap"
+            is="rv-map"
+            rv-config="customprint-config.json"
+            rv-langs='["en-CA", "fr-CA"]'
+            rv-plugins="customPrint"
+        >
+            <noscript>
+                <p>
+                    This interactive map requires JavaScript. To view this content please enable JavaScript in your
+                    browser or download a browser that supports it.
+                </p>
+                <p></p>
+
+                <p>
+                    Cette carte interactive nécessite JavaScript. Pour voir ce contenu, s'il vous plaît, activer
+                    JavaScript dans votre navigateur ou télécharger un navigateur qui le prend en charge.
+                </p>
+            </noscript>
+        </div>
+
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Object.entries,Object.values,Array.prototype.find,Array.prototype.findIndex,Array.prototype.values,Array.prototype.includes,HTMLCanvasElement.prototype.toBlob,String.prototype.repeat,String.prototype.codePointAt,String.fromCodePoint,NodeList.prototype.@@iterator,Promise,Promise.prototype.finally"></script>
+        <script src="/rv-main.js"></script>
+    </body>
+
+    <script>
+        setTimeout(() => {
+            // test to add observable
+            // can be reuse in draw to notify user new geometry has been added
+            window.canvasObs.getCanvas.subscribe(value => {
+                console.log('yes sir: ' + value[0].value);
+
+                //$('#customPrintView .panel-body').append(cloneCanvas(value[0].value));
+            })
+        }, 5000)
+
+        function cloneCanvas(oldCanvas) {
+            //create a new canvas
+            var newCanvas = document.createElement('canvas');
+            var context = newCanvas.getContext('2d');
+
+            //set dimensions
+            newCanvas.width = oldCanvas.width;
+            newCanvas.height = oldCanvas.height;
+
+            //apply the old canvas to the new one
+            context.drawImage(oldCanvas, 0, 0);
+
+            //return the new canvas
+            return newCanvas;
+        }
+    </script>
+</html>
