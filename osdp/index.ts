@@ -1,6 +1,8 @@
 import { indexOf } from 'benchmark';
 import { runInThisContext } from 'vm';
 
+// Add my commment...
+
 export default class OSDP {
     // a store of the instances of OSDP, 1 per map
     static instances: { [id: string]: OSDP } = {};
@@ -35,7 +37,7 @@ export default class OSDP {
                 // need to call later because if called before map initilize, rest of function is skipped
                 this.setZoomEndEvent((<any>window).RAMP.mapById(this.api.id));
 
-                // dirty hack into viewer events not accessible from api plugin... should use with caution 
+                // dirty hack into viewer events not accessible from api plugin... should use with caution
                 var unregisterListener = (<any>window).RAMP.mapInstances[0].$compile('<div>a</div>',false).$parent.$on('rvProjectiontChanged', (event) => console.log('Projection Changed: ' + event));
 
                 // Try to solve the "Remove layer twice fast doesn't fired event twice"
