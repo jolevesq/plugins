@@ -1,10 +1,10 @@
 import { form } from './html-assets';
-import {Info} from './info';
-import { panelMod } from './panelManager';
+//import {Info} from './info';
+//import { panelMod } from './panelManager';
 const FileSaver = require('file-saver');
 export default class Testing{
 
-    _panel:panelMod = new panelMod();
+    //_panel:panelMod = new panelMod();
 
     //initiation
     init(api: any) {
@@ -20,7 +20,7 @@ export default class Testing{
             this.onMenuItemClick()
         );
         
-  
+        this.addPanel();  
     }
 
     //add side menu item
@@ -28,24 +28,42 @@ export default class Testing{
         return () => {
             //this.button.isActive = !this.button.isActive;
             this._RV.toggleSideNav('close');
-            this.addPanel();  
+            this.panel.open();
         };
     }
 
     //add a panel with a form
-    addPanel(){
+    addPanel() {
 
         //à enlever plus tard
         let name:string = 'planifiezZT'
-        let hello = new Info('','','','','');
+        //let hello = new Info('','','','','');
 
         //add panel
-        this.panel = this._panel.createPanel(this.panel, this.mapApi,name,Testing.prototype.translations[this._RV.getCurrentLang()].testbutton);
+        // TODO: Pour la traduction utilise {{ 'plugins.testing.envir' | translate }} dans tom template
+        //this.panel = this._panel.createPanel(this.panel, this.mapApi,name,Testing.prototype.translations[this._RV.getCurrentLang()].testbutton);
         //set the from inside the panel
-        this.panel.body =  form //hello.getFormPanifiez(hello.interactiveDropDownList());
-        Testing.prototype.translations[this._RV.getCurrentLang()];
+
+        // TODO: Creer le panel
+        this.panel = this.mapApi.panels.create('Test Submit');
+        this.panel.element.css({ bottom: '0em', width: '400px', top: '50px' });
+
+        // TODO: creer la directive avant de compiler le code
+        this.mapApi.agControllerRegister('SubmitCtrl', function($scope){
+            //$scope.alert = window.alert;
+            this.submitForm = function() {
+                alert('hello');
+                //this._panel.submitForm(this._RV);
+            };
+        });
+
+        // TODO: compiler ton code pour que la directive Angular soit associe a ton code.
+        this.panel.body = form; //hello.getFormPanifiez(hello.interactiveDropDownList());
+
+        // TODO: pas besoin de cela, la traduction se fait dans ton html directement avec {{ message | translate }}
+        //Testing.prototype.translations[this._RV.getCurrentLang()];
         //open the panel in the viewer
-        this.panel.open();
+        //this.panel.open();
 
         
         //hello.submitForm(this._RV);
@@ -53,14 +71,14 @@ export default class Testing{
         /***** Button *****/
         //this._panel.submitForm(this._RV);
         //submit form Plan
-        this.mapApi.agControllerRegister('SubmitCtrl', function($scope){
-            $scope.alert = window.alert;
-            this.submit = function() {
-                alert('hello');
-                this._panel.submitForm(this._RV);
-            };
+        // this.mapApi.agControllerRegister('SubmitCtrl', function($scope){
+        //     $scope.alert = window.alert;
+        //     this.submit = function() {
+        //         alert('hello');
+        //         this._panel.submitForm(this._RV);
+        //     };
 
-        });
+        // });
         
         //this.angularControls();
         
@@ -84,9 +102,6 @@ export default class Testing{
         //FileSaver.saveAs(blob, "hello world.json");
         //create a json and save the file in the download folder
     }
-
-
-    
 };
 
 export default interface Testing{
@@ -107,7 +122,8 @@ Testing.prototype.translations = {
         zoneTrv: 'Working Zone',
         typeTrv: 'Working Type',
         datefinprv: 'Final date planned',
-        geome: 'Geometry'
+        geome: 'Geometry',
+        submit: 'Submit'
     },
 
     'fr-CA': {
@@ -117,7 +133,8 @@ Testing.prototype.translations = {
         zoneTrv: 'Zone de travail',
         typeTrv: 'Type de travail',
         datefinprv: 'Date fin prévue',
-        geome: 'Géométrie'    
+        geome: 'Géométrie',
+        submit: 'Soumettre'
     }
 };
 

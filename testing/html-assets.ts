@@ -3,7 +3,6 @@
 
 export const form:string = 
 `<div tabindex="-2" ng-controller="SubmitCtrl as ctrl">
-
     {{ 'plugins.testing.envir' | translate }}<br>
     <input type="text" name="env" id="env" value="Pro">
     <br>
@@ -29,8 +28,11 @@ export const form:string =
     <input type="date" name="datefin">
     <br><br>
 
-    <button class="md-primary md-button" ng-click="ctrl.submit()">
-        Submit
-    </button>
-            
+    <div>
+    <md-button class="md-primary md-button"
+        ng-click="ctrl.submitForm()">
+        {{ 'plugins.testing.submit' | translate }}
+        <md-tooltip>{{ 'plugins.testing.submit' | translate }}</md-tooltip>
+    </md-button>
+    </div>
 </div>`;
