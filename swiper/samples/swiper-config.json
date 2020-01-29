@@ -264,7 +264,7 @@
       "swiper": {
         "type": "vertical",
         "keyboardOffset": 10,
-        "layers": ["0", "1"]
+        "layers": [{"id": "0"}, {"id": "1"}]
       }
     }
   }
