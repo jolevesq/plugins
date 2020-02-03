@@ -3,6 +3,8 @@ export default class OSDP {
         [id: string]: OSDP;
     };
     init(api: any): void;
+    setVisibility(mapId: string, layerId: string, index?: number): void;
+    getVisibilityControl(entries: any, layerId: string, ctrlVis: any[]): any[];
     setZoomEndEvent(mapi: any): void;
     preventZoom(mapi: any): void;
     addLayerByUUID(uuid: string): void;
@@ -20,6 +22,7 @@ export default class OSDP {
     removeGeometries(mapId: string): void;
     zoomPt(mapId: string, value: string): void;
     zoomExtent(mapId: string, coords: [], expand?: number): void;
+    zoomCanadaExtent(mapId: string): void;
     zoomWkt(mapId: string, values: string, type: string): void;
     saveState(mapid: string): void;
     loadState(mapid: string): void;

@@ -41,8 +41,11 @@
         <div class="row">
             <select id="selectConfig" class="tool">
                <option value="osdp-config.json">01. OSDP</option>
-               <option value="empty-config.json">02. Empty</option>
-               <option value="DevoProjects-OSDP-R1-en-V06.json">03. BC WMS</option>
+               <option value="osdp-remove-config.json">02. Remove</option>
+               <option value="empty-config.json">03. Empty</option>
+               <option value="DevoProjects-OSDP-R1-en-V06.json">04. BC WMS</option>
+               <option value="osdp-explore-config.json">05. OSDP explore</option>
+               <option value="osdp-temp-config.json">05. OSDP temporary test</option>
             </select>
         </div>
     </section>
@@ -65,6 +68,14 @@
     <div class="osdpFunctions">
         <div>
             <!-- get the extent box section -->
+            <button type="button" onclick="window.osdp.setVisibility('mapOSDP', 'In progress***db762e06')">Set visibility FeatureLayer</button>
+            <button type="button" onclick="window.osdp.setVisibility('mapOSDP', 'DynamicVis2', parseInt(document.getElementById('layerIndex').value), (document.getElementById('layerGroup').value === 'true') ? true : false)">Set visibility DynamicLayer</button>
+            <input id="layerIndex" type="text" value="2"></input>
+            <input id="layerGroup" type="text" value="true"></input>
+        </div>
+
+        <div>
+            <!-- get the extent box section -->
             <button type="button" onclick="displayExtentBox()">Get Extent Box</button>
             <label id="extbbox"></label>
         </div>
@@ -74,10 +85,13 @@
             <input type="text" id="zoomPt" name="zoomPt" value="POINT(-112.92 53.8)"></input>
             <button type="button" onclick="zoomPt()">Zoom Lat\Long</button>
 
-            <!-- zoom polygon section section -->
+            <!-- zoom polygon section -->
             <input type="text" id="zoomPoly" name="zoomPoly"
                 value="POLYGON((-128.75 53.8,-128.75 53.92,-112.92 53.92,-112.92 53.8,-128.75 53.8))"></input>
             <button type="button" onclick="zoomPoly()">Zoom Polygon</button>
+
+            <!-- zoom canada extent section -->
+            <button type="button" onclick="window.osdp.zoomCanadaExtent('mapOSDP')">Zoom Canada Extent</button>
         </div>
 
         <div>
@@ -103,6 +117,11 @@
             <label for="addLayerUUID">UUID</label>
             <input id="addLayerUUID" type="text" list="rcsList" name="layer" onfocus="this.value=''"></input>
             <datalist id="rcsList">
+                <option value="b23a6be5-c7b0-4a12-a598-bb369a159be1"></option>
+                <option value="761a8849-1712-49f1-8833-1f04b474b3f8"></option>
+                <option value="rcs.f48efc96-a51f-40f9-aaa0-90797f92e269.en">
+                <option value="rcs.1c61d457-4d03-4f3a-9005-9aabb5a201bb.en"></option>
+                <option value="ea4c0bdb-a63f-49a4-b14a-09c1560aad0b"></option>
                 <option value="3d282116-e556-400c-9306-ca1a3cada77f">
                 <option value="b6b6d5a6-bded-4b6e-9e8a-17f6e1b538dc">
                 <option value="7796058d-507f-4b6d-b169-8c6af60c5916">
@@ -163,7 +182,7 @@
     <script
         src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Object.entries,Object.values,Array.prototype.find,Array.prototype.findIndex,Array.prototype.values,Array.prototype.includes,HTMLCanvasElement.prototype.toBlob,String.prototype.repeat,String.prototype.codePointAt,String.fromCodePoint,NodeList.prototype.@@iterator,Promise,Promise.prototype.finally"></script>
     <script src="/legacy-api.js"></script>
-    <script src="/rv-main-test.js"></script>
+    <script src="/rv-main-osdp.js"></script>
 </body>
 
 <script>

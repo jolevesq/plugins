@@ -5,19 +5,63 @@ export default class OSDP {
     // a store of the instances of OSDP, 1 per map
     static instances: { [id: string]: OSDP } = {};
 
+    private _failedInterval;
+    private _badLayerIndex = 0;
+
     init(api: any): void {
         this.api = api;
         this.initUpdateExtentBox();
 
+        // add event listener for the custom remove event
+        document.addEventListener('bad-layer-removed', (evt) =>{
+            this._badLayerIndex--;
+            console.log(`Bad Layer removed: ${(evt as any).detail.uuid}`);
+        }, false);
+
         // add the OSDP grapic layer
         const myInter = setInterval(() => {
+
             if (typeof (<any>window).RAMP.mapById(this.api.id) !== 'undefined') {
                 (<any>window).RAMP.mapById(this.api.id).layersObj.addLayer('graphicsOSDP');
+
+                this.api.layersObj.layerAdded.subscribe(layer => {
+                    // clear the interval if good layer is added (solve the remove bad layer event - 628)
+                    clearInterval(this._failedInterval);
+
+                    if (typeof layer._viewerLayer.initialConfig !== 'undefined') {
+                        // disable remove button for layrer from config file - 496
+                        const removeInterval = setInterval(() => {
+                            const ctrl = $("rv-legend-block [aria-label=\"" + layer.name + "\"]").parent();
+                            if (typeof ctrl !== 'undefined') {
+                                const up = ctrl.parentsUntil('.rv-legend-level-0')[ctrl.parentsUntil('.rv-legend-level-0').length - 1];
+                                $(up).find('[aria-label="Remove"], [aria-label="Retirer"]').attr('disabled', 'true');
+                                console.log("layer name: " + layer.name + ",   length: " + $(up).find('[aria-label="Remove"], [aria-label="Retirer"]').length);
+                                clearInterval(removeInterval);
+                            }
+                        }, 100);
+
+                        // if BC layer added automatically, set template and parser
+                        if (layer.id.contains('ea4c0bdb-a63f-49a4-b14a-09c1560aad0b')) {
+                            layer._viewerLayer.config._details = { parser: "templates/wms-bc-script.js", template: "templates/wms-bc-template.html" };
+                            layer._viewerLayer.config._featureInfoMimeType = "text/html";
+                        }
+                        // NOT USE because on OSDP site, code from rv-main is triggered before the plugin
+                        //console.log(`Add remove to layer ${layer.name}`);
+                        // layer._viewerLayer.initialConfig.state.userAdded = true;
+                        // layer._viewerLayer.initialConfig._enableStructuredDelete = true;
+                    }
+                });
 
                 // subscribe to add layer even to reorder the layers so graphicOSDP is always on top
                 this.api.layersObj.layerAdded.subscribe(layer => {
                     const map = (<any>window).RAMP.mapById(this.api.id);
                     const pos = map.esriMap.graphicsLayerIds.length - 2;
+
+                    // subscribe to visibility change event
+                    const _layer = layer
+                    layer.visibilityChanged.subscribe((value) => {
+                        console.log(`layer: ${_layer.name} (${_layer.id}) - ${value}`);
+                    });
 
                     // use a timeout because viewer always try to reoder graphic layers...
                     // if timeout is not an option, reoder layer when we add a new geometry
@@ -80,6 +124,38 @@ export default class OSDP {
         this.testService({ 'url': 'https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_resource_potential_of_north_america_en/MapServer/0' });
     }
 
+    setVisibility(mapId: string, layerId: string, index: number = -1, group: boolean = false) {
+        const myMap = (<any>window).RAMP.mapById(mapId);
+        const layer = myMap.layersObj.getLayersById(layerId)[0];
+
+        // loop trought the legedn and add to the array of controls
+        let ctrlVis = [];
+        ctrlVis = this.getVisibilityControl(layer._mapInstance._legendBlocks._entries, layerId, group, ctrlVis);
+
+        index = (ctrlVis.length === 0) ? 0 : index;
+        
+        if (!group) {
+            ctrlVis[index].visibility = !ctrlVis[index].visibility;
+        } else {
+            ctrlVis[index].parent.visibility = !ctrlVis[index].parent.visibility;
+        }
+    }
+
+    getVisibilityControl(entries: any, layerId: string,  group: boolean, ctrlVis: any[]) {
+        for (let entry of entries) {
+            // check if it is a group, if so, loop trought it
+            if (entry._id.contains('group')) {
+                this.getVisibilityControl(entry.entries, layerId, group, ctrlVis);
+            } else if (entry._layerRecordId === layerId) {
+                // add the control to the array of controls.
+                // for feature layer thre will be only one control and for dynamic layer, an index will need to be sepcified
+                ctrlVis.push(entry);
+            }
+        }
+
+        return ctrlVis;
+    }
+
     setZoomEndEvent(mapi: any): void {
         mapi.esriMap.on('zoom-end', evt => {
             console.log(`zoom level:  ${evt.level}, new extent: ${JSON.stringify(evt.extent)}`);
@@ -105,6 +181,23 @@ export default class OSDP {
         // only works on legacy API for the moment
         // We can use add this.api.fgpMapObj.addConfigLayer(JSON) if we have the JSON object
         this._RV.loadRcsLayers([uuid]);
+
+        // check if the layer is not loaded properly
+        this._failedInterval = setInterval(() => {
+            if (document.getElementsByClassName('rv-legend-error').length > this._badLayerIndex) {
+                const button = $('.rv-legend-error [name="remove"] button')[0];
+                $(button).on('click', () => { 
+                    // Create the event and dispatch
+                    const event = new CustomEvent('bad-layer-removed', { 'detail': { 'uuid': uuid }});
+                    document.dispatchEvent(event);
+                 });
+
+                 this._badLayerIndex++;
+
+                // the failed layer placeholder found, clear the interval
+                clearInterval(this._failedInterval);
+            }
+        }, 100);
     }
 
     addLayerByConfig(mapId: string, config: any): void {
@@ -114,6 +207,7 @@ export default class OSDP {
             'id': 'examplelayer',
             'name': 'An exemplary Layer',
             'layerType': 'esriFeature',
+            'enableStructuredDelete': true,
             'controls': [
                 'remove',
                 'visibility'
@@ -125,6 +219,8 @@ export default class OSDP {
             'url': 'https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_resource_potential_of_north_america_en/MapServer/0'
         };
         const myConfigLayer = myMap.layers.addLayer(layerJSON);
+
+        this.api.fgpMapObj.addConfigLayer(layerJSON)
     }
 
     removeLayers(mapId: string) {
@@ -292,6 +388,13 @@ export default class OSDP {
             'spatialReference': { 'wkid': 4326 } }, myMap.esriMap.spatialReference);
 
         myMap.setExtent(ext.expand(expand));
+    }
+
+    zoomCanadaExtent (mapId: string): void {
+        const myMap = (<any>window).RAMP.mapById(mapId);
+        myMap.setExtent({
+            'xmax': 5262672.990644315, 'xmin': -9527564.923164846, 'ymax': 4950633.802514605, 'ymin': -1902088.236262806,
+            'spatialReference': { 'wkid': 3978 } });
     }
 
     zoomWkt(mapId: string, values: string, type: string) {

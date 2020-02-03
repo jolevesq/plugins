@@ -49,7 +49,7 @@
       }
     },
     "map": {
-      "initialBasemapId": "baseNrCan",
+      "initialBasemapId": "baseNrcan",
       "components": {
         "geoSearch": {
           "enabled": true,
@@ -1049,6 +1049,40 @@
               "parser": "templates/wms-bc-script.js",
               "template": "templates/wms-bc-template.html"
             }
+          },
+          {
+            "id": "DynamicVis",
+            "name": "Dynamic",
+            "layerType": "esriDynamic",
+            "layerEntries": [{
+              "index": 210,
+              "nameField": "OBJECTID",
+              "name": "Dynamic A"
+            },{
+              "index": 213,
+              "nameField": "OBJECTID",
+              "name": "Dynamic B"
+            },{
+              "index": 214,
+              "nameField": "OBJECTID",
+              "name": "Dynamic C"
+            }],
+            "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TE/MapServer/"
+          },
+          {
+            "id": "DynamicVis2",
+            "name": "Dynamic2",
+            "layerType": "esriDynamic",
+            "layerEntries": [{
+              "index": 213,
+              "nameField": "OBJECTID",
+              "name": "Dynamic 2"
+            },{
+              "index": 214,
+              "nameField": "OBJECTID",
+              "name": "Dynamic 3"
+            }],
+            "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TE/MapServer/"
           }
     ],
     "legend": {
@@ -1056,6 +1090,14 @@
         "root": {
             "name": "root",
             "children": [
+              {
+                "layerId": "DynamicVis",
+                "expanded": false
+              },
+              {
+                "layerId": "DynamicVis2",
+                "expanded": false
+              },
                 {
                   "layerId": "BC***fa36baef"
                 },
@@ -1344,7 +1386,7 @@
       ],
       "baseMaps": [
         {
-          "id": "baseNrCan",
+          "id": "baseNrcan",
           "name": "Canada Base Map - Transportation (CBMT)",
           "description": "The Canada Base Map - Transportation (CBMT) web mapping services of the Earth Sciences Sector at Natural Resources Canada, are intended primarily for online mapping application users and developers.",
           "altText": "altText - The Canada Base Map - Transportation (CBMT)",
