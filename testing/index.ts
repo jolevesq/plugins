@@ -1,5 +1,5 @@
 /****** Import ******/
-import { loginmenu } from './config/html-assets';
+import { loginmenu, AUTO_COMPLETE } from './config/html-assets';
 import { manageController } from './manager/ControllerManager'
 import { login } from './login';
 import { menuManager } from './manager/menuManager';
@@ -54,12 +54,45 @@ export default class Testing{
         //compile the login template
         mb.compileTemplate(output,this.mapApi);
 
+        // *** AUTOCOMPLETE SECTION ***
+        this.mapApi.agControllerRegister('autoCtrl', function($scope){
+            this.selectedItemA = '';
+            this.selectedItemB = '';
+
+            this.itemsA = [
+                { name: 'item 1', value: 'value1' },
+                { name: 'item 2', value: 'value2' },
+                { name: 'item 3', value: 'value3' }
+            ];
+
+            const newList = {
+                value1: [{ name: 'a', value: 'a1' }, { name: 'b', value: 'b1' }, { name: 'c', value: 'c1' }],
+                value2: [{ name: '1', value: '11' }, { name: '2', value: '21' }, { name: '3', value: '31' }],
+                value3: [{ name: '@', value: '@1' }, { name: '#', value: '#1' }, { name: '$', value: '$1' }]
+            };
+
+            this.itemsB = [];
+
+            this.setList = () => {
+                console.log(`set: ${this.selectedItemA}`);
+
+                // populate list b with new items
+                this.itemsB.length = 0;
+                newList[this.selectedItemA].forEach(item => this.itemsB.push(item))
+            }
+        });
+
+        // compile autocomplete
+        const auto = mb.compileTemplate(AUTO_COMPLETE, this.mapApi);
+
         //add a close button 
         let closeBtn = this.panel.header.closeButton;
         //add a toggle button
         let toggleBtn = this.panel.header.toggleButton;
         //add the template to the panel
         this.panel.body = output;
+
+        this.panel.body.append(auto);
     }
 
 

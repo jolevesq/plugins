@@ -5,6 +5,31 @@ formPlanifier =  The form for the planning
 formDelivery = The from for the delivery
 */
 
+export const AUTO_COMPLETE:string = `
+<div ng-controller="autoCtrl as ctrl">
+    <md-input-container md-no-float class="">
+            <md-select
+                placeholder="{{ 'plugins.testing.idUT' | translate }}"
+                ng-model="ctrl.selectedItemA"
+                ng-change="ctrl.setList()">
+                <md-option ng-repeat="item in ctrl.itemsA" ng-value="item.value">
+                    {{ item.name }}
+                </md-option>
+            </md-select>
+    </md-input-container>
+    <md-input-container md-no-float class="">
+            <md-select
+                placeholder="{{ 'plugins.testing.idUT' | translate }}"
+                ng-model="ctrl.selectedItemB"
+                ng-change="ctrl.setListB()">
+                <md-option ng-repeat="item in ctrl.itemsB" ng-value="item.value">
+                    {{ item.name }}
+                </md-option>
+            </md-select>
+    </md-input-container>
+</div>`;
+
+
 export const loginmenu:string= `
 <div ng-controller="connexionCtrl as ctrl">
     <div><h2>{{ 'plugins.testing.login' | translate }}</h2></div>
