@@ -4,8 +4,6 @@
 }
 
 .rv-mapnav-draw-content {
-  padding-bottom: 30px;
-
   .rv-draw-button {
     margin: 0px!important;
   }
@@ -20,6 +18,8 @@
   }
 }
 
+// hide measures
 .rv-draw-text-hide {
   visibility: hidden;
 }
+

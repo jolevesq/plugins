@@ -1,4 +1,4 @@
-// panels templates: collaboration
+// panels templates: draw
 export const MAPNAV_DRAW_TOOLBAR_TEMPLATE = `
 <span class="rv-spacer"></span>
 <div class="rv-mapnav-content rv-mapnav-draw-content">

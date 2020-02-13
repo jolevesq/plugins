@@ -1,5 +1,9 @@
 // source: https://github.com/suytt/esri.symbol.MultiLineTextSymbol/blob/master/esri.symbol.MultiLineTextSymbol.js
 export class MultiLineLayer {
+    /**
+     * Set the text multiline for distance and area
+     * @function setMultiLine
+     */
     static setMultiLine() {
         let myBundlePromise = (<any>RAMP).GAPI.esriLoadApiClasses([
             ['esri/layers/LabelLayer', 'LabelLayer']
@@ -19,6 +23,10 @@ export class MultiLineLayer {
 }
 
 export class MultilineTextSymbol {
+    /**
+     * Set the text symbol multiline for distance and area
+     * @function setMultiLine
+     */
     static setMultiLine() {
         let myBundlePromise = (<any>RAMP).GAPI.esriLoadApiClasses([
             ['esri/symbols/TextSymbol', 'TextSymbol'],
