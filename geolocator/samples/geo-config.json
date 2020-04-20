@@ -689,9 +689,11 @@
 	"language": "en-CA",
 	"plugins": {
 		"geolocator": {
-			"enable": true
+			"enable": true,
+			"locate":  "http://geogratis.gc.ca/services/geolocation/en/locate?",
+			"suggest": "https://autocomplete.geocoder.api.here.com/6.2/suggest.json",
+			"GEOCODER_URL": " https://geocoder.api.here.com/6.2/geocode.json"	
 		},
-
 		"locationInfo": [
 		{
 			"title": "",
@@ -724,10 +726,6 @@
 	
 	}
 }
-
-
-
-
 
 
 
