@@ -18,6 +18,13 @@ export class planifier{
     _whereclause: string;  
     _geom: string;
     _json:string = '';
+    _host:string ='';
+    _port:string = '';
+    _dbname:string = '';
+    _schema:string = '';
+    _password:string = '';
+    _username:string = '';
+    _type_conn:string ='';
 
     //data from API
     _data: any;
@@ -36,7 +43,7 @@ export class planifier{
      * @param {string} geom une geométrie entré par l'utilisateur
      * @memberof planifier
      */
-    constructor(theme:string,idut:string,tt:string,classes:string[],datefin:string,wc:string,geom:string){
+    constructor(theme:string,idut:string,tt:string,classes:string[],datefin:string,wc:string,geom:string, host:string, port:string, dbname:string, schema:string, password:string, username:string, type_conn:string){
         this._theme = theme;
         this._idUT = idut;
         this._typetravail = tt;
@@ -44,6 +51,13 @@ export class planifier{
         this._datefinpre = datefin;
         this._whereclause = wc;
         this._geom = geom;
+        this._host = host;
+        this._port = port;
+        this._dbname = dbname;
+        this._schema = schema;
+        this._password= password;
+        this._username = username;
+        this._type_conn = username;
     }
     /************* Methods *************/
     /**
@@ -76,7 +90,16 @@ export class planifier{
             "liste_classes": this.getclasses(),
             "date_fin_prevue": this.getdatefinpre(),
             "where_clause": this.getzonetravail(),
-            "geom": this.getgeom()
+            "geom": this.getgeom(),
+            "param_connexion":{
+                "host": this._host.toString(),
+                "port": this._port.toString(),
+                "dbname": this._dbname.toString(),
+                "schema": this._schema.toString(),
+                "password": this._password.toString(),
+                "username": this._username.toString(),
+                "type_conn": this._type_conn.toString()
+            }
         };
         this._json= JSON.stringify(output)
     }

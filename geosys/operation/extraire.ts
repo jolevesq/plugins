@@ -17,6 +17,7 @@ export class Extraire{
     _whereClause: string;
     _geom: string;
     _json:string;
+    _type:string;
     //data from API
     _data:any;
     _envopt:string = '';
@@ -33,7 +34,7 @@ export class Extraire{
      * @param {string} [geom] la géométrie entré par l'utilisateur.
      * @memberof Extraire
      */
-    constructor(theme:string, idUT?:string, clip?:string,whereClause?:string, geom?:string){
+    constructor(theme:string, type:string, idUT?:string, clip?:string,whereClause?:string, geom?:string){
         this._theme = theme;
         this._idUT = idUT;
         this._clip = clip;
@@ -60,7 +61,7 @@ export class Extraire{
             //alert(this.getJson())
         //if idUt is set sent the idUt in the url and the json is empty
         }else{
-            url = log.constructUrl(urlgeoDatGetId + this._idUT);
+            url = log.constructUrl(urlgeoDatGetId + this._idUT + '?format_fichier_data='+this._type);
             //alert('extract planned')
         }
         //Call to the Api

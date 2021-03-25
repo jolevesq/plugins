@@ -20,6 +20,8 @@ export class ExtractController {
             this.selectedItemA = '';
             // Working unit ID
             this.selectedItemB = '';
+            // file Type
+            this.selectedItemC = '';
             // Set up the theme list
             this.itemsA = [];
             for (let i in log.getThemeAcc()) {
@@ -59,7 +61,7 @@ export class ExtractController {
                     log.setCloseable(false);
                 } else {
                     log.setCloseable(true);
-                    let ext = new Extraire(this.selectedItemA, this.selectedItemB);
+                    let ext = new Extraire(this.selectedItemA, this.selectedItemC, this.selectedItemB);
                     ext.setOptionnalEnvironnement(this.selectedItemENT);
                     let ApiReturn:any = ext.submitForm(log);
                     
@@ -220,8 +222,9 @@ export class ExtractController {
                     // Console.log(this.geomSR)
                     log.setCloseable(true);
                     let extsr = new Extraire(
-                        this.selectedItemA);
-                        extsr.setInfoForSR(listofclass,
+                        this.selectedItemA,
+                        this.selectedItemB);
+                    extsr.setInfoForSR(listofclass,
                         siClip,
                         this.whereclause,
                         this.geomSR);

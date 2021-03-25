@@ -34,6 +34,20 @@ export const formExtraireP:string =
                     </md-select>
                 </md-input-container>
 
+                <md-input-container class="Geosys-ddlshowEX">
+                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl3.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
+                    <md-select
+                    ng-model="ctrl3.selectedItemC"
+                    required>
+                        <md-option ng-value="GPKG">
+                            GPKG
+                        </md-option>
+                        <md-option ng-value="GDB">
+                            FGDB
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
                 <div ng-show="ctrl1.AdvancedVisible" ng-click="ctrl3.ShowHideAdvanced()" class="advanced">
                     <span>Advanced Settings</span>
                 </div>
@@ -128,16 +142,30 @@ export const formExtraireSR:string =
                     </div>
                 </div>
 
+                <md-input-container class="Geosys-ddlshowEX">
+                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl3.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
+                    <md-select
+                    ng-model="ctrl4.selectedItemB"
+                    required>
+                        <md-option ng-value="GPKG">
+                            GPKG
+                        </md-option>
+                        <md-option ng-value="GDB">
+                            FGDB
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
                 <div ng-show="ctrl1.AdvancedVisible" ng-click="ctrl4.ShowHideAdvanced()" class="Geosys-advanced">
                     <span>Advanced Settings</span>
                 </div>
                 <div ng-show="ctrl4.IsVisibleASP">
                     <md-input-container class="Geosys-ddlshowEX">
                         <label>{{ 'plugins.geosys.envir' | translate }}</label>
-                        <md-select 
+                        <md-select
                         class="Geosys-envSelect"
-                        ng-model="ctrl4.selectedItemENT" 
-                        id="envE" 
+                        ng-model="ctrl4.selectedItemENT"
+                        id="envE"
                         placeholder="{{ 'plugins.geosys.envir' | translate }}">
                             <md-option ng-repeat="item in ctrl4.itemsENT" ng-value="item.value">
                                 {{ item.name }}

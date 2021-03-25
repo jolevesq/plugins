@@ -1,9 +1,9 @@
  
 // Url for Extract sans retour(/geodata) Get
-export const urlgeoDataGet: string = `geodata`;
+export const urlgeoDataGet: string = `data`;
 
 // Url for planned extract(/geodata/{identifiant}) Get
-export const urlgeoDatGetId: string = `geodata/`;
+export const urlgeoDatGetId: string = `data/`;
 
 // Url for the login(/securite/login) Get
 //export const urlLoginGet: string = `securite/login`;

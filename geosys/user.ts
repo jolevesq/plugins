@@ -54,7 +54,8 @@ export class User{
      * @memberof User
      */
     constructUrl(url: string, adding: string = ''): string {
-        return this._urlEnvselected /*'http://127.0.0.1:4010/'*/ + url + adding
+        console.log("http://api.geosys-dev.services.geo.ca:30524/v1/" + url + adding)
+        return /*this._urlEnvselected*/ "http://api.geosys-dev.services.geo.ca:30524/v1/" + url + adding
     }
     /**
      * With the connexion to the APi send a json file with the username and the password in the header to get
@@ -66,37 +67,39 @@ export class User{
         let data: any;
         // let header: any = this.getInformationToHeader();
         data = this._conn.connexionAPILogin(config.url_login,this.getUsername(),this.getPassword());
+        console.log(data)
         // Destroy the password for the session
         this._password = '';
+        console.log(config.url_env)
         // Set the data from the connexion
-        if (data.status === undefined) { 
+        if (data.status === undefined) {
             let json = '';
             // Set environnement
-            this.setListEnv(this._conn.connexionAPI(this.getToken(), json, config.url_env, 'Get'));           
-            this.setDataFromAPI(data.access_token,data.token_type,data.expired, data.scope ,data.theme, data.equipe,config);   
+            this.setDataFromAPI(data.access_token,data.token_type,data.expired, data.scope ,data.theme, data.equipe,config);
+            this.setListEnv(this._conn.connexionAPI(this.getToken(), json, config.url_env, 'Get'));
         } else {
             alert(data.status)
         }
-        return data;     
+        return data;
     };
     /**
      * Create the list of environnement and their url and place the PRO environnment in first
      * @param {*} output Its the data from API.
      * @memberof User
      */
-    setListEnv(output: any) {        
+    setListEnv(output: any) {
         for (let i in output.envs) {
-            if (output.envs[i].env === 'PRO') {
+            if (output.envs[i].env === 'DEV') {
                 this._envAcc.push(new Environnement(output.envs[i].env,output.envs[i].url))
                 break;
             } 
         }
         for (let i in output.envs) {
-            if (output.envs[i].env != 'PRO') {
+            if (output.envs[i].env != 'DEV') {
                 this._envAcc.push(new Environnement(output.envs[i].env,output.envs[i].url))
             }  
         }
-        this.setEnvironnementSelected("PRO")
+        this.setEnvironnementSelected('DEV')
     }
     /**
      * Set the environnement url to a properties with the environnement selected
@@ -175,7 +178,7 @@ export class User{
         }
         //set all form with the base theme
         this.callAPIWorkingUnit(this._baseTheme);
-        this.callAPIListeClasse(this._baseTheme);
+        //this.callAPIListeClasse(this._baseTheme);
         this.callAPIWorkingType(this._baseTheme);  
     }
     /**
@@ -291,17 +294,18 @@ export class User{
     /**
      * create a json file for getting a list of classes 
      * mostly hardcoded.
-     * @param {string} theme the theme selected by the user
+     * @param {string} theme the theme selected by the user (nom en string)
      * @returns {string} return a raw json
      * @memberof User
      */
     createJsonRessources(theme: string/*, path:string */): string {
+        console.log(theme)
         let output:any = {
             'fichiers': [
               theme + ':ress.json'
             ],
             'chemin_recherche': [
-              'ressources/liste_classes'
+              'ressources/'+ theme +'/liste_classes'
             ]
           }
         let json:any = JSON.stringify(output)

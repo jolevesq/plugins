@@ -24,6 +24,13 @@ export class PlanningController {
             this.wherep = '';
             this.itemsC = [];
             this.idut = '';
+            this.host =''
+            this.port =''
+            this.dbname =''
+            this.schema =''
+            this.password =''
+            this.usernameParCo =''
+            this.type_conn  =''
             //theme list
             for (let i in log.getThemeAcc()) {
                 this.itemsC.push({ name: log.getThemeAcc()[i].getnom(), value: log.getThemeAcc()[i].getId()});
@@ -166,7 +173,14 @@ export class PlanningController {
                         listofclass,
                         this.dfp,
                         this.wherep,
-                        log.getGeom());
+                        log.getGeom(),
+                        this.host,
+                        this.port,
+                        this.dbname,
+                        this.schema,
+                        this.password,
+                        this.usernameParCo,
+                        this.type_conn);
                     //submit the form to the API
                     let ApiReturn: any = plan.submitForm(log);
                     //If the return isn't a succes

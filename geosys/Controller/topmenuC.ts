@@ -95,6 +95,8 @@ export class TopMenuController {
             this.IsVisibleV = false;
             // Delivery
             this.IsVisibleD = false;
+            // DeliverySR
+            this.IsVisibleDSR = false;
             // Cleaning
             this.IsVisibleCL = false;
             // Cancel
@@ -115,6 +117,7 @@ export class TopMenuController {
                         this.IsVisibleCL = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
+                        this.IsVisibleDSR = false;
                         //highlight
                         this.SelectedMenuP = {
                             'opacity': '1', 
@@ -124,6 +127,7 @@ export class TopMenuController {
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuD = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuC = {};
                         this.SelectedMenuCa = {};
                         this.SelectedMenuUT = {};
@@ -164,6 +168,7 @@ export class TopMenuController {
                         this.IsVisibleCL = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
+                        this.IsVisibleDSR = false;
                         //highlight
                         this.SelectedMenuE = {
                             'opacity': '1', 
@@ -172,6 +177,7 @@ export class TopMenuController {
                         this.SelectedMenuEU = {};
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuD = {};
                         this.SelectedMenuC = {};
                         this.SelectedMenuCa = {};
@@ -211,6 +217,7 @@ export class TopMenuController {
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
                         //highlight
@@ -221,6 +228,7 @@ export class TopMenuController {
                         this.SelectedMenuP = {};
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuD = {};
                         this.SelectedMenuC = {};
                         this.SelectedMenuCa = {};
@@ -251,6 +259,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
@@ -262,6 +271,7 @@ export class TopMenuController {
                         }
                         this.SelectedMenuEU = {}
                         this.SelectedMenuE = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuP = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuD = {};
@@ -297,6 +307,7 @@ export class TopMenuController {
                         this.IsVisibleCR = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
                         //highlight
@@ -306,6 +317,7 @@ export class TopMenuController {
                         this.SelectedMenuCr = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuE = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuP = {};
                         this.SelectedMenuD = {};
                         this.SelectedMenuC = {};
@@ -346,6 +358,7 @@ export class TopMenuController {
                         this.IsVisibleCR = false;
                         this.IsVisibleV = false;
                         this.IsVisibleCL = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
                         //highlight
@@ -355,6 +368,7 @@ export class TopMenuController {
                         this.SelectedMenuP = {};
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuC = {};
@@ -377,6 +391,59 @@ export class TopMenuController {
                     }
                 }
             }
+
+            //permet d'afficher ou cacher le formulaire en cliquant sur le titre
+            this.ShowHideDSR = () => {
+                if (log.getEnvironnementSel() !== '' && log.getCloseable() === true) {
+                    this.IsVisibleDSR = this.IsVisibleDSR ? false : true;
+                    if (this.IsVisibleD === true) {
+                        //Advanced Setting
+                        if (log.getAdvanced() === true) {
+                            this.AdvancedVisible = true;
+                        } else {
+                            this.AdvancedVisible = false;
+                        }
+                        //hide non-selected
+                        this.IsVisiblePlanning = false;
+                        this.IsVisibleEP = false;
+                        this.IsVisibleSR = false;
+                        this.IsVisibleCR = false;
+                        this.IsVisibleV = false;
+                        this.IsVisibleCL = false;
+                        this.IsVisibleCA = false;
+                        this.IsVisibleUT = false;
+                        this.IsVisibleD = false;
+                        //highlight
+                        this.SelectedMenuDSR = {
+                            'opacity': '1', 
+                        }
+                        this.SelectedMenuD = {};
+                        this.SelectedMenuP = {};
+                        this.SelectedMenuE = {};
+                        this.SelectedMenuEU = {};
+                        this.SelectedMenuCr = {};
+                        this.SelectedMenuDSR = {};
+                        this.SelectedMenuV = {};
+                        this.SelectedMenuC = {};
+                        this.SelectedMenuCa = {};
+                        this.SelectedMenuUT = {};
+                    } else {
+                        this.SelectedMenuDSR = {};
+                    } 
+                }    
+            };
+            this.setColorDSR = () => {
+                if ( log.getCloseable() === false) {
+                    this.SelectedMenuDSR = {
+                        "background-color": "red",
+                    }
+                    log.setCloseable(true);
+                } else {
+                    this.SelectedMenuDSR = {
+                        "background-color": "green",
+                    }
+                }
+            }
             //permet d'afficher ou cacher le formulaire en cliquant sur le titre
             this.ShowHideCl = () => {
                 if (log.getEnvironnementSel() !== '' && log.getCloseable() === true) {
@@ -388,6 +455,7 @@ export class TopMenuController {
                         this.IsVisibleSR = false;
                         this.IsVisibleCR = false;
                         this.IsVisibleV = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
@@ -400,6 +468,7 @@ export class TopMenuController {
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuCr = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuCa = {};
                         this.SelectedMenuUT = {};
@@ -429,6 +498,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleCR = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
@@ -443,6 +513,7 @@ export class TopMenuController {
                         this.SelectedMenuP = {};
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuUT = {};
@@ -474,6 +545,7 @@ export class TopMenuController {
                         this.IsVisibleSR = false;
                         this.IsVisibleCR = false;
                         this.IsVisibleV = false;
+                        this.IsVisibleDSR = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
                         this.IsVisibleCA = false;
@@ -484,6 +556,7 @@ export class TopMenuController {
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuP = {};
+                        this.SelectedMenuDSR = {};
                         this.SelectedMenuCr = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuD = {};

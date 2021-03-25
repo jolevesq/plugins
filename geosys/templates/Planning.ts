@@ -90,7 +90,45 @@ export const formPlanifier = `
                 </div>
             </div>
         </div>
-        
+        <span style="margin-top: 0px;" class="Geosys-advanced">Connection settings</span>
+        <br/>
+        <br/>
+        <div class='Geosys-geom-Menu'>
+            <md-input-container class="Geosys-largeur">
+                <label>Host<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="host" id="host" ng-value="ctrl2.host" placeholder="Host">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>Port<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="port" id="port" ng-value="ctrl22.port" placeholder="port">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>dbname<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="dbname" id="dbname" ng-value="ctrl2.dbname" placeholder="dbname">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>schema<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="schema" id="schema" ng-value="ctrl2.schema" placeholder="schema">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>password<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="password" id="password" ng-value="ctrl2.password" placeholder="password">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>username<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="usernameParCo" id="usernameParCo" ng-value="ctrl2.usernameParCo" placeholder="usernameParCo">
+            </md-input-container>
+            <md-input-container class="Geosys-largeur">
+                <br/>
+                <label>type_conn<span class="Geosys-errormess" ng-show="ctrl2.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                <input type="text" name="type_conn" id="type_conn" ng-value="ctrl2.type_conn" placeholder="type_conn">
+            </md-input-container>
+        </div>
         <div>
         <md-input-container class="Geosys-submitbtn">
             <md-button class="md-primary md-raised" style="float: right;"

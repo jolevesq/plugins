@@ -11,6 +11,7 @@ export class Connexion {
      */
     connexionAPIFileManager(token: string, urltogo: string, operation: string, content: string, file: any = ''): any {
         /********* API CALL **********/
+        console.log(token)
         return new Promise(resolve => {
             $.ajax( {
                 // URL of the API

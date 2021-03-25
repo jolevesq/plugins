@@ -4,7 +4,7 @@ import { formPlanifier } from '../templates/planning';
 
 import { formExtraireSR, formExtraireP } from '../templates/extract';
 import { formCreerMD } from '../templates/create';
-import {  formDelivery } from '../templates/delivery';
+import {  formDelivery, formDeliverySR } from '../templates/delivery';
 import {  topmenu } from '../templates/topmenu';
 import {  formNettoyage } from '../templates/cleaning';
 import { formCancel } from '../templates/cancel';
@@ -73,6 +73,7 @@ export class menuManager{
         let outputTopmenu:string = this.topMenuManager(log,mapApi);
         let outputFileManager:string = this.fileExplorerManager(log,mapApi);
         let outputUnit:string = this.UTManager(log,mapApi);
+        let outputDeliSR:string = this.deliverySRManager(log,mapApi);
         
         let menuprincipal:string;
 
@@ -86,7 +87,8 @@ export class menuManager{
                             + outputNettoyage 
                             + `<div class="Geosys-section">{{ 'plugins.geosys.uti' | translate }}</div>`
                             + outputExtSR
-                            + outputCreer 
+                            + outputCreer
+                            + outputDeliSR
                             + outputVali
                             + outputCancel
                             + outputUnit
@@ -197,9 +199,24 @@ export class menuManager{
         return output;
     }
 
-
     /**
      * 
+     * @param {User} log
+     * @param {*} mapApi
+     * @returns {string}
+     * @memberof menuManager
+     */
+    deliverySRManager(log:User, mapApi:any):string{
+        this._delivery.deliControlSA(log, mapApi);
+
+        let output = formDeliverySR;
+        //mb.compileTemplate(output,mapApi);
+        return output
+    }
+
+
+    /**
+     *
      * @param {User} log
      * @param {*} mapApi
      * @returns {string}
