@@ -6,7 +6,7 @@ export const validateform:string = `
     <div ng-show="ctrl1.IsVisibleV" ng-style="ctrl1.bgEnv">
         <form name="valiform">
             <div class="rv-subsection">
-                <md-input-container class="Geosys-ddlshowEX">
+                <!--<md-input-container class="Geosys-ddlshowEX">
                     <label>{{ 'plugins.geosys.themet' | translate }}</label>
                     <md-select 
                     ng-model="ctrl9.selectedItemE" 
@@ -27,10 +27,10 @@ export const validateform:string = `
                             {{ item.name }}
                         </md-option>
                     </md-select>
-                </md-input-container>
+                </md-input-container>-->
 
                 
-                <span><span class="Geosys-advanced">{{ 'plugins.geosys.filejson' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl2.errJSON">{{ 'plugins.geosys.errorFMD' | translate }}</span></span>
+                <span><span class="Geosys-advanced">{{ 'plugins.geosys.filejson' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl2.errJSON">{{ 'plugins.geosys.errorFMD' | translate }}</span></span><br/>
                     <input  type="file" id="fileJSON" accept=".json"/>
                 
                 <md-input-container class="Geosys-submitbtn">

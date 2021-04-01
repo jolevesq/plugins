@@ -4,12 +4,13 @@ import { formPlanifier } from '../templates/planning';
 
 import { formExtraireSR, formExtraireP } from '../templates/extract';
 import { formCreerMD } from '../templates/create';
-import {  formDelivery, formDeliverySR } from '../templates/delivery';
-import {  topmenu } from '../templates/topmenu';
-import {  formNettoyage } from '../templates/cleaning';
+import { formDelivery, formDeliverySR } from '../templates/delivery';
+import { topmenu } from '../templates/topmenu';
+import { formNettoyage } from '../templates/cleaning';
 import { formCancel } from '../templates/cancel';
 import { validateform } from '../templates/validate';
 import { menuFileExplorer } from '../templates/fileManager';
+import { formExtraireMD} from '../templates/extraireMD';
 //import { manageController } from "./ControllerManager";
 //import { formExtraireSR, formExtraireP, formPlanifier, formDelivery, topmenu, formCreerMD, formNettoyage, formCancel, validateform } from '../templates/validate';
 
@@ -25,6 +26,7 @@ import { ValidateController } from '../controller/validateC';
 import { FileController } from '../controller/fileManagerC'
 import { uniteTravail } from '../templates/queryCallsTemp';
 import { QueryCallC } from '../Controller/queryCallsC';
+import { ExtraireMDController } from '../Controller/extraireMDC';
 
 
 export class menuManager{
@@ -39,6 +41,7 @@ export class menuManager{
     _validate: ValidateController;
     _fileManager: FileController;
     _workUnit: QueryCallC;
+    _extraireMD : ExtraireMDController;
 
 
     /**
@@ -60,6 +63,7 @@ export class menuManager{
         this._validate = new ValidateController();
         this._fileManager = new FileController();
         this._workUnit = new QueryCallC();
+        this._extraireMD = new ExtraireMDController();
 
         //varaible for the form
         let outputExt:string  = this.extractManager(log,mapApi);
@@ -74,6 +78,8 @@ export class menuManager{
         let outputFileManager:string = this.fileExplorerManager(log,mapApi);
         let outputUnit:string = this.UTManager(log,mapApi);
         let outputDeliSR:string = this.deliverySRManager(log,mapApi);
+        let outExtraireMD:string = this.extraireMDManager(log,mapApi);
+
         
         let menuprincipal:string;
 
@@ -83,17 +89,19 @@ export class menuManager{
                             + `<div class="Geosys-section">{{ 'plugins.geosys.geo' | translate }}</div>`
                             + outputPlan
                             + outputExt
-                            + outputDeli  
-                            + outputNettoyage 
+                            + outputDeli
+                            + outputNettoyage
                             + `<div class="Geosys-section">{{ 'plugins.geosys.uti' | translate }}</div>`
                             + outputExtSR
-                            + outputCreer
+                            // Remplacer par extraireMD (GET meta/{identifiant})
+                            + outExtraireMD
+                            //+ outputCreer
                             + outputDeliSR
                             + outputVali
-                            + outputCancel
+                            //+ outputCancel
                             + outputUnit
                             + outputFileManager
-                        // First div to close the ng-controller of the topMenu 
+                        // First div to close the ng-controller of the topMenu
                         // Second div close the div of the variable
                         + "</div></div>";
         
@@ -196,6 +204,20 @@ export class menuManager{
         this._create.creerControl(log, mapApi);
 
         let output = formCreerMD;
+        return output;
+    }
+
+    /**
+     * Set the template of the create From
+     * @param {User} log all the info of the user
+     * @param {*} mapApi the Api of the user
+     * @returns {string} return the compiled output
+     * @memberof menuManager
+     */
+    extraireMDManager(log:User, mapApi:any):string{
+        this._extraireMD.extraireMDcontrols(log, mapApi);
+
+        let output = formExtraireMD;
         return output;
     }
 

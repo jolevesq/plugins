@@ -90,7 +90,7 @@ export class TopMenuController {
             // Extraction U
             this.IsVisibleSR = false;
             // Create
-            this.IsVisibleCR = false;
+            this.IsVisibleEXMD = false;
             // Validate
             this.IsVisibleV = false;
             // Delivery
@@ -111,7 +111,7 @@ export class TopMenuController {
                         //hide non-selected
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
@@ -124,7 +124,7 @@ export class TopMenuController {
                         };
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuD = {};
                         this.SelectedMenuDSR = {};
@@ -162,7 +162,7 @@ export class TopMenuController {
                         //hide non-selected
                         this.IsVisiblePlanning = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
@@ -175,7 +175,7 @@ export class TopMenuController {
                         };
                         this.SelectedMenuP = {};
                         this.SelectedMenuEU = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuDSR = {};
                         this.SelectedMenuD = {};
@@ -213,7 +213,7 @@ export class TopMenuController {
                         //hide non-selected
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
@@ -226,7 +226,7 @@ export class TopMenuController {
                         }
                         this.SelectedMenuE = {};
                         this.SelectedMenuP = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuDSR = {};
                         this.SelectedMenuD = {};
@@ -251,10 +251,10 @@ export class TopMenuController {
                 }
             }
             //permet d'afficher ou cacher le formulaire en cliquant sur le titre
-            this.ShowHideCr = () => {
+            this.ShowHideEXMD = () => {
                 if (log.getEnvironnementSel() !== '' && log.getCloseable() === true) {
-                    this.IsVisibleCR = this.IsVisibleCR ? false : true;
-                    if (this.IsVisibleCR === true) {
+                    this.IsVisibleEXMD = this.IsVisibleEXMD ? false : true;
+                    if (this.IsVisibleEXMD === true) {
                         //hide non-selected
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
@@ -266,7 +266,7 @@ export class TopMenuController {
                         this.IsVisibleCA = false;
                         this.IsVisibleUT = false;
                         //highlight
-                        this.SelectedMenuCr = {
+                        this.SelectedMenuEXMD = {
                             'opacity': '1', 
                         }
                         this.SelectedMenuEU = {}
@@ -279,18 +279,18 @@ export class TopMenuController {
                         this.SelectedMenuCa = {};
                         this.SelectedMenuUT = {};
                     } else {
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                     } 
                 }   
             };
             this.setColorCr = () => {
                 if ( log.getCloseable() === false) {
-                    this.SelectedMenuCr = {
+                    this.SelectedMenuEXMD = {
                         "background-color": "red",
                     }
                     log.setCloseable(true);
                 } else {
-                    this.SelectedMenuCr = {
+                    this.SelectedMenuEXMD = {
                         "background-color": "green",
                     }
                 }
@@ -304,7 +304,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
                         this.IsVisibleDSR = false;
@@ -314,7 +314,7 @@ export class TopMenuController {
                         this.SelectedMenuV = {
                             'opacity': '1', 
                         };
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuE = {};
                         this.SelectedMenuDSR = {};
@@ -355,7 +355,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleCL = false;
                         this.IsVisibleDSR = false;
@@ -369,7 +369,7 @@ export class TopMenuController {
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuDSR = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuC = {};
                         this.SelectedMenuCa = {};
@@ -407,7 +407,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleCL = false;
                         this.IsVisibleCA = false;
@@ -415,13 +415,13 @@ export class TopMenuController {
                         this.IsVisibleD = false;
                         //highlight
                         this.SelectedMenuDSR = {
-                            'opacity': '1', 
+                            'opacity': '1',
                         }
                         this.SelectedMenuD = {};
                         this.SelectedMenuP = {};
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuDSR = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuC = {};
@@ -429,8 +429,8 @@ export class TopMenuController {
                         this.SelectedMenuUT = {};
                     } else {
                         this.SelectedMenuDSR = {};
-                    } 
-                }    
+                    }
+                }
             };
             this.setColorDSR = () => {
                 if ( log.getCloseable() === false) {
@@ -453,7 +453,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleDSR = false;
                         this.IsVisibleD = false;
@@ -467,7 +467,7 @@ export class TopMenuController {
                         this.SelectedMenuP = {};
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuDSR = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuCa = {};
@@ -499,7 +499,7 @@ export class TopMenuController {
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
                         this.IsVisibleDSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleD = false;
                         this.IsVisibleCL = false;
@@ -514,7 +514,7 @@ export class TopMenuController {
                         this.SelectedMenuE = {};
                         this.SelectedMenuEU = {};
                         this.SelectedMenuDSR = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuUT = {};
                     } else {
@@ -543,7 +543,7 @@ export class TopMenuController {
                         this.IsVisiblePlanning = false;
                         this.IsVisibleEP = false;
                         this.IsVisibleSR = false;
-                        this.IsVisibleCR = false;
+                        this.IsVisibleEXMD = false;
                         this.IsVisibleV = false;
                         this.IsVisibleDSR = false;
                         this.IsVisibleD = false;
@@ -557,7 +557,7 @@ export class TopMenuController {
                         this.SelectedMenuEU = {};
                         this.SelectedMenuP = {};
                         this.SelectedMenuDSR = {};
-                        this.SelectedMenuCr = {};
+                        this.SelectedMenuEXMD = {};
                         this.SelectedMenuV = {};
                         this.SelectedMenuD = {};
                         this.SelectedMenuC = {};

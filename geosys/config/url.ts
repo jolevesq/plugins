@@ -1,6 +1,6 @@
  
 // Url for Extract sans retour(/geodata) Get
-export const urlgeoDataGet: string = `data`;
+export const urlgeoDataGet: string = `data/extraire-data`;
 
 // Url for planned extract(/geodata/{identifiant}) Get
 export const urlgeoDatGetId: string = `data/`;
@@ -24,10 +24,13 @@ export const urlClassesList: string = `systeme/ressources-recherche`;
 export const urlWorkingType: string = `suivi-prod/type-travail/theme/`;
 
 // Url for delivery(Insert)(/geodata/{identifiant}) Post
-export const urlDeliveryInsert: string = `geodata/`;
+export const urlDeliveryInsert: string = `data/`;
 
 // Url for delivery(Update)(/geodata/{identifiant}) Put
-export const urlDeliveryUpdate: string = `geodata/`;
+export const urlDeliveryUpdate: string = `data/`;
+
+// Url for delivery(Update)(/geodata/{identifiant}) Put
+export const urlDeliverySansPlan: string = `data/livrer-data`;
 
 // Url for creating MD(/geosys/creer-md) Post
 export const urlCreateMD: string = `geosys/creer-md`;
@@ -44,7 +47,7 @@ export const urlDeleteClean: string = `suivi-prod/unite-travail/`
 // Url for cancelling for step for a theme (/suivi-prod/etape-ut/{identifiant}) Delete
 export const urlCancelStep:string = `suivi-prod/etape-ut/`;
 
-// Url for testing a file manager 
+// Url for testing a file manager
 export const urlListFile:string = `systeme/liste-contenants-fichiers?contenant_url=`;
 
 // Url Download/Delete File

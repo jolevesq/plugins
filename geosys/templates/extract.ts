@@ -143,7 +143,7 @@ export const formExtraireSR:string =
                 </div>
 
                 <md-input-container class="Geosys-ddlshowEX">
-                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl3.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
+                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl4.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
                     <md-select
                     ng-model="ctrl4.selectedItemB"
                     required>

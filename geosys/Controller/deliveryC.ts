@@ -21,6 +21,10 @@ export class DeliveryController{
             /************** interactive List ***************/
             //operation type on the DB
             this.typeOper = '';
+            //operation type on the DB
+            this.selectedItemR = '';
+            //mdid
+            this.mdid = '';
             //theme
             this.selectedItemE = '';
             //Working unit ID
@@ -57,15 +61,14 @@ export class DeliveryController{
             //Envoie le formulaire a l'API
             this.submitFormD = function() { 
                 //get all the information of the form into the class
-                if ((<HTMLInputElement>document.getElementById('fileMD')).files.length === 0) {
-                    this.errMD = true;
-                    log.setCloseable(false);
-                } else if ((<HTMLInputElement>document.getElementById('filefgdb')).files.length === 0) {
+                if ((<HTMLInputElement>document.getElementById('filefgdb')).files.length === 0) {
                     this.errFGDB = true;
                     log.setCloseable(false);
                 } else {
                     let formdata = new FormData();
                     log.setCloseable(true);
+                    formdata.append('format_fichier_data',this.selectedItemR);
+                    formdata.append('md_id',this.mdid);
                     formdata.append('fichier_data',(<HTMLInputElement>document.getElementById('fileMD')).files[0]);
                     formdata.append('fichier_meta',(<HTMLInputElement>document.getElementById('filefgdb')).files[0]);
                     let livre:Livraison = new Livraison(this.selectedItemF,this.selectedItemE,this.typeOper);
@@ -93,10 +96,21 @@ export class DeliveryController{
             /************** interactive List ***************/
             //operation type on the DB
             this.typeOper = '';
+            this.selectedItemR = '';
             //theme
             this.selectedItemE = '';
             //Working unit ID
             this.selectedItemF = '';
+            // param connection
+            this.host = '';
+            this.port = '';
+            this.dbname = '';
+            this.schema = '';
+            this.password = '';
+            this.usernameParCo = '';
+            this.type_conn = '';
+            //geom
+            this.geom = '';
             //set up theme list
             this.itemsE = [];
             for (let i in log.getThemeAcc()) {
@@ -195,17 +209,21 @@ export class DeliveryController{
                 } else {
                     let formdata = new FormData();
                     log.setCloseable(true);
-                    formdata.append('theme','');
+                    let livre:Livraison = new Livraison(this.selectedItemF,this.selectedItemE,this.typeOper);
+                    let parconn = livre.createJsonPraramConn(this.host, this.port,this.dbname, this.schema,this.password, this.usernameParCo, this.type_conn)
+                    formdata.append('theme',this.selectedItemE);
+                    formdata.append('md_id', this.mdid)
                     formdata.append('liste_classes','');
-                    formdata.append('param_connexion','');
+                    // recevoir JSON (faire JSON)
+                    formdata.append('param_connexion',parconn);
+                    formdata.append('format_fichier_data',this.selectedItemR);
                     formdata.append('fichier_data',(<HTMLInputElement>document.getElementById('fileMD')).files[0]);
                     formdata.append('fichier_meta',(<HTMLInputElement>document.getElementById('filefgdb')).files[0]);
-                    formdata.append('fichier_data','');
-                    let livre:Livraison = new Livraison(this.selectedItemF,this.selectedItemE,this.typeOper);
+                    formdata.append('geom',this.geom);
                     livre.setOptionnalEnvironnement(this.selectedItemENT);
                     //submit form
-                    let ApiReturn:any = livre.submitForm(formdata,log);
-                       
+                    let ApiReturn:any = livre.submitFormSR(formdata,log);
+
                     if (ApiReturn != undefined) {
                         log.setCloseable(false);
                         alert(ApiReturn);

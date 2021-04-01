@@ -17,7 +17,7 @@ export class ValidateController {
         mapApi.agControllerRegister('submitFromV', function() {
             this.errJSON = false;
             /************** interactive List ***************/
-            this.selectedItemE = '';
+            /*this.selectedItemE = '';
             this.selectedItemF = '';
             this.itemsE = [];
             for (let i in log.getThemeAcc()) {
@@ -33,7 +33,7 @@ export class ValidateController {
                     this.itemsF.push(list[i])
                 }
                 //log.setbaseTheme(this.selectedItemE);
-            }
+            }*/
             //Envoie le fromulaire a l'API
             this.submitFormV = () => { 
                 if ((<HTMLInputElement>document.getElementById('fileJSON')).files.length === 0) {
@@ -43,8 +43,6 @@ export class ValidateController {
                     //get all the information of the form into the class
                     let formdata = new FormData();
                     log.setCloseable(true);
-                    formdata.append('theme', this.selectedItemE);
-                    formdata.append('id_ut', this.selectedItemF);
                     formdata.append('fichier_json', (<HTMLInputElement>document.getElementById('fileJSON')).files[0]);
                     let vali: Valider = new Valider();
                     let api: any = vali.submitForm(formdata,log);

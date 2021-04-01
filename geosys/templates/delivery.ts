@@ -21,10 +21,10 @@ export const formDelivery = `
 
                 <md-input-container class="Geosys-ddlshowEX">
                     <label>{{ 'plugins.geosys.themet' | translate }}</label>
-                    <md-select 
-                    ng-model="ctrl5.selectedItemE" 
-                    ng-change="ctrl5.setList()" 
-                    id="theme" 
+                    <md-select
+                    ng-model="ctrl5.selectedItemE"
+                    ng-change="ctrl5.setList()"
+                    id="theme"
                     required>
                         <md-option ng-repeat="item in ctrl5.itemsE" ng-value="item.value" ng-selected="ctrl5.itemsE.indexOf(item) == 0">
                             {{ item.name }}
@@ -41,15 +41,34 @@ export const formDelivery = `
                         </md-option>
                     </md-select>
                 </md-input-container>
+                <br/>
+                <br/>
+                <md-input-container class="Geosys-largeur">
+                    <label>MD_ID<span class="Geosys-errormess" ng-show="ctrl5.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                    <input type="text" name="mdid" id="mdid" ng-value="ctrl5.mdid" placeholder="MD_ID">
+                </md-input-container>
 
-                <div>
-                    <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileMD' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl5.errMD">{{ 'plugins.geosys.errorFMD' | translate }}</span></span>
-                    <input  type="file" id="fileMD" accept="json"/>
-                </div>
-                <div>
-                    <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileGDB' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl5.errFGDB">{{ 'plugins.geosys.errorFGDB' | translate }}</span></span>
-                    <input type="file" id="filefgdb" accept="zip"/>
-                </div>
+                <md-input-container class="Geosys-ddlshowEX">
+                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl5.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
+                    <md-select
+                    ng-model="ctrl5.selectedItemR"
+                    required>
+                        <md-option value="GPKG">GPKG</md-option>
+                        <md-option value="FGDB">FGDB</md-option>
+                    </md-select>
+                </md-input-container>
+                
+                    <div>
+                        <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileMD' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl5.errMD">{{ 'plugins.geosys.errorFMD' | translate }}</span></span>
+                        <input  type="file" id="fileMD" accept="json"/>
+                    </div>
+                
+                
+                    <div>
+                        <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileGDB' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl5.errFGDB">{{ 'plugins.geosys.errorFGDB' | translate }}</span></span><br/>
+                        <input type="file" id="filefgdb" accept="zip"/>
+                    </div>
+                
                 
                 <div ng-show="ctrl1.AdvancedVisible" ng-click="ctrl5.ShowHideAdvanced()" class="Geosys-advanced">
                     <span>Advanced Settings</span>
@@ -57,10 +76,10 @@ export const formDelivery = `
                 <div ng-show="ctrl5.IsVisibleASP">
                     <md-input-container class="Geosys-ddlshowEX">
                         <label>{{ 'plugins.geosys.envir' | translate }}</label>
-                        <md-select 
+                        <md-select
                         class="Geosys-envSelect"
-                        ng-model="ctrl5.selectedItemENT" 
-                        id="envE" 
+                        ng-model="ctrl5.selectedItemENT"
+                        id="envE"
                         placeholder="{{ 'plugins.geosys.envir' | translate }}">
                             <md-option ng-repeat="item in ctrl5.itemsENT" ng-value="item.value" >
                                 {{ item.name }}
@@ -91,7 +110,7 @@ export const formDelivery = `
 
 export const formDeliverySR = `
 <div ng-controller="submitFromDSA as ctrl22">
-    <div ng-style="ctrl1.SelectedMenuD" class="Geosys-div-Button-Uti" ng-click="ctrl1.ShowHideDSR()">
+    <div ng-style="ctrl1.SelectedMenuDSR" class="Geosys-div-Button-Uti" ng-click="ctrl1.ShowHideDSR()">
         <h2>{{ 'plugins.geosys.delivery' | translate }}</h2>
     </div>
     <div ng-show="ctrl1.IsVisibleDSR" ng-style="ctrl1.bgEnv">
@@ -132,9 +151,58 @@ export const formDeliverySR = `
                 </md-input-container>
                 <br/>
                 <br/>
+                <span style="margin-top: 0px;" class="Geosys-advanced">Connection settings</span>
+                <br/>
+                <div class='Geosys-geom-Menu'>
+                    <md-input-container class="Geosys-largeur">
+                        <label>Host<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="host" id="host" ng-value="ctrl22.host" placeholder="Host">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>Port<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="port" id="port" ng-value="ctrl22.port" placeholder="port">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>dbname<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="dbname" id="dbname" ng-value="ctrl22.dbname" placeholder="dbname">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>schema<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="schema" id="schema" ng-value="ctrl22.schema" placeholder="schema">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>password<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="password" id="password" ng-value="ctrl22.password" placeholder="password">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>username<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="usernameParCo" id="usernameParCo" ng-value="ctrl22.usernameParCo" placeholder="usernameParCo">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>type_conn<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="type_conn" id="type_conn" ng-value="ctrl22.type_conn" placeholder="type_conn">
+                    </md-input-container>
+                </div>
+                <br/>
                 <md-input-container class="Geosys-largeur">
-                    <label>Param_connexion<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
-                    <input type="text" name="param" id="param" ng-value="ctrl22.param_connexion" placeholder="Param connection">
+                    <label>MD_ID<span class="Geosys-errormess" ng-show="ctrl22.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                    <input type="text" name="mdid" id="mdid" ng-value="ctrl22.mdid" placeholder="MD_ID">
+                </md-input-container>
+
+                <md-input-container class="Geosys-ddlshowEX">
+                    <label>Type</label><span class="Geosys-errormess" ng-show="ctrl22.ErrorEx">{{ 'plugins.geosys.errorWU' | translate }}</span>
+                    <md-select
+                    ng-model="ctrl22.selectedItemR"
+                    required>
+                        <md-option value="GPKG">GPKG</md-option>
+                        <md-option value="FGDB">FGDB</md-option>
+                    </md-select>
                 </md-input-container>
 
                 <div>
@@ -142,10 +210,10 @@ export const formDeliverySR = `
                     <input  type="file" id="fileMD" accept="json"/>
                 </div>
                 <div>
-                    <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileGDB' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl22.errFGDB">{{ 'plugins.geosys.errorFGDB' | translate }}</span></span>
+                    <span><span class="Geosys-advanced">{{ 'plugins.geosys.fileGDB' | translate }}</span><span class="Geosys-errormess Geosys-sizeerror" ng-show="ctrl22.errFGDB">{{ 'plugins.geosys.errorFGDB' | translate }}</span></span><br/>
                     <input type="file" id="filefgdb" accept="zip"/>
                 </div>
-                
+                <br/>
                 <span style="margin-top: 0px;" class="Geosys-advanced">{{ 'plugins.geosys.geome' | translate }}</span>
                 <div class='Geosys-geom-Menu'>
                     <div class="Geosys-geom-DivIn1">
@@ -179,10 +247,10 @@ export const formDeliverySR = `
                 <div ng-show="ctrl22.IsVisibleASP">
                     <md-input-container class="Geosys-ddlshowEX">
                         <label>{{ 'plugins.geosys.envir' | translate }}</label>
-                        <md-select 
+                        <md-select
                         class="Geosys-envSelect"
-                        ng-model="ctrl22.selectedItemENT" 
-                        id="envE" 
+                        ng-model="ctrl22.selectedItemENT"
+                        id="envE"
                         placeholder="{{ 'plugins.geosys.envir' | translate }}">
                             <md-option ng-repeat="item in ctrl22.itemsENT" ng-value="item.value" >
                                 {{ item.name }}

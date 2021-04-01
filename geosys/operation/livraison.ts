@@ -1,6 +1,6 @@
 import { Connexion } from "../apiConnect";
 import { User } from '../user';
-import { urlDeliveryUpdate } from "../config/url";
+import { urlDeliveryUpdate, urlDeliverySansPlan } from "../config/url";
 
 
 export class Livraison{
@@ -32,7 +32,39 @@ export class Livraison{
         }else{
             //alert(this.getinfo().status);
             return apire;
-        }      
+        }
+    }
+
+    submitFormSR(form:any, log:User){
+        let method:string;
+        if(this._typeConn === 'Update'){
+            method = 'Put';
+        }else{
+            method = 'Post'
+        }
+        let apire:any = this._conn.connexionAPIFormData(log.getToken(), form , log.constructUrl(urlDeliverySansPlan), method);
+        //for test
+        if(apire == 'success'){
+            //alert( this.getinfo());
+            return apire;
+        }else{
+            //alert(this.getinfo().status);
+            return apire;
+        }
+    }
+    
+
+    createJsonPraramConn(host:string, port:string, dbname:string , schema:string , password :string, username:string, type_conn:string){
+        let json = {
+            "host":host,
+            "port": port,
+            "dbname":dbname,
+            "schema":schema,
+            "password":password,
+            "username":username,
+            "type_conn":type_conn
+        }
+        return JSON.stringify(json)
     }
 
     /**

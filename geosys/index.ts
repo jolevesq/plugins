@@ -147,7 +147,7 @@ Geosys.prototype.translations = {
         insert: 'Overwrite',
         update: 'Update',
         fileMD: 'File metadata: ',
-        fileGDB: 'File geodatabase: ',
+        fileGDB: 'Data file: ',
         // CréerMD seulement
         creer: 'CreateMD (work in progress)',
         source: 'Select the sources ID: ',
@@ -160,6 +160,8 @@ Geosys.prototype.translations = {
         nettoyage: 'Clean',
         // Annuler seulement
         annuler: 'Cancel (work in progress)',
+        // ExtraireMD
+        extraireMD : 'ExtractMD',
         // Info user
         themeI: 'Theme',
         right: 'Right',
@@ -207,14 +209,14 @@ Geosys.prototype.translations = {
         // Login seulement
         login: 'connexion :',
         username: 'nom d usager',
-        password: 'mot de passe', 
-        // Livraison seulement 
+        password: 'mot de passe',
+        // Livraison seulement
         delivery: 'Livrer',
         postput: 'Sélectionne une opération :',
         insert: 'Écraser',
-        update: 'Mise à jour', 
+        update: 'Mise à jour',
         fileMD: 'Fichier métadonnée : ',
-        fileGDB: 'Fichier géo base de donnée : ',
+        fileGDB: 'Fichier de donnée : ',
         // CréerMD seulement
         creer: 'Creer une MD (work in progress)',
         source: 'Sélectionner les identifiants des sources : ',
@@ -227,6 +229,8 @@ Geosys.prototype.translations = {
         nettoyage: 'Nettoyer',
         // Annuler seulement
         annuler: 'Annuler (work in progress)',
+        // ExtraireMD
+        extraireMD : 'ExtraireMD',
         // Info user
         themeI: 'Thème',
         right: 'Droit',
