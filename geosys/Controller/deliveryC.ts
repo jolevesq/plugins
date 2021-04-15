@@ -144,14 +144,14 @@ export class DeliveryController{
                 this.inputchecked = false;
             }
             //subscribe for the drawing
-            (<any>window).drawObs.drawPolygon.subscribe(value => {
-                //create a geojson with the infromation obtain
-                if (this.drawingchecked == true) {
-                    //show the geo json in the input 
-                    this.geomp = JSON.stringify(value.rings);
-                    this.geomEPSG = value.spatialReference.wkid;
-                }
-            });
+            // (<any>window).drawObs.drawPolygon.subscribe(value => {
+            //     //create a geojson with the infromation obtain
+            //     if (this.drawingchecked == true) {
+            //         //show the geo json in the input 
+            //         this.geomp = JSON.stringify(value.rings);
+            //         this.geomEPSG = value.spatialReference.wkid;
+            //     }
+            // });
             /************** Shapefile Load ***************/
             this.loadshp = () => {
                 let files: any = (<HTMLInputElement>document.getElementById('fileshp')).files

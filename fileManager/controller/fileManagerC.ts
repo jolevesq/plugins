@@ -59,11 +59,30 @@ export class FileManagerController {
                         fmc.FileManaManager(token,mapApi, tfm, panel, panel1);
                         panel.body = output;
                     });
-                    
-                } 
+                }
             }
-            //refresh the folder 
+            //refresh the folder
             this.refresh = () => {
+                panel.body = tfm.buildHeaderFileManager() + `<br/><div class="loader"></div>` + '<div>';
+                let fmc: FileManagerController = new FileManagerController();
+                let output = tfm.buildUI() + dragdropFunction;
+                tfm.obtainArbo(token).then(values => {
+                    tfm.setValue(values);
+                    fmc.FileManaManager(token,mapApi, tfm, panel , panel1);
+                    panel.body = output;
+                });
+            }
+            //edit the breacrumbs
+            this.edit = () => {
+                let fmc: FileManagerController = new FileManagerController();
+                let output = tfm.buildEditableUI() + dragdropFunction;
+                panel.body = output;
+            }
+            // send the editable breadcrubs
+            this.send = () => {
+                console.log($('#editbread').val());
+                let valuebread:string = $('#editbread').val().toString();
+                tfm.setBreadcrumbs(valuebread)
                 panel.body = tfm.buildHeaderFileManager() + `<br/><div class="loader"></div>` + '<div>';
                 let fmc: FileManagerController = new FileManagerController();
                 let output = tfm.buildUI() + dragdropFunction;

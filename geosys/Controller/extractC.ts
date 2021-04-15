@@ -138,14 +138,14 @@ export class ExtractController {
                 this.inputchecked = false;
             }
             /************** Subscribe to the drawing event ***************/
-            (<any>window).drawObs.drawPolygon.subscribe(value => {
-                // Create a geojson with the information obtain if the checkbox for drawinf is check
-                if (this.drawingchecked == true) {
-                    log.createGeoJson('ESPG:'+ value.spatialReference.wkid,value.rings)
-                    // Show the geo json in the input 
-                    that.geomSR = log.getGeom(); 
-                }
-            });
+            // (<any>window).drawObs.drawPolygon.subscribe(value => {
+            //     // Create a geojson with the information obtain if the checkbox for drawinf is check
+            //     if (this.drawingchecked == true) {
+            //         log.createGeoJson('ESPG:'+ value.spatialReference.wkid,value.rings)
+            //         // Show the geo json in the input 
+            //         that.geomSR = log.getGeom(); 
+            //     }
+            // });
             /************** Shapefile load ***************/
             this.loadshpEX = () => {
                 // Get the files in the input

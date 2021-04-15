@@ -33,6 +33,34 @@
     transition: 0.5s;
     background-color: silver;
   }
+  .Geosys-edit {
+    margin-left: 0px;
+    float: right;
+    padding-top: 8px;
+    padding-left: 3px;
+    padding-right: 2px;
+    border-left: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgrey;
+    padding-bottom: 5px;
+    cursor: pointer;
+    margin-top: -11px;
+    margin-right: -2px;
+  }
+  .Geosys-edit:hover {
+    transition: 0.5s;
+    background-color: silver;
+  }
+
+  .geosys-editbox{
+    height: 20px;
+    width: 80%;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 3px;
+  }
+
   .Geosys-breadclass {
     width: 99%;
     padding: 10px 0px 10px 5px;

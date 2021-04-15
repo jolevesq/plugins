@@ -271,8 +271,8 @@
         "url_env": "http://api.geosys-dev.services.geo.ca:30524/v1/systeme/envs",
         "base_theme": "10301"
       },
-      "draw": { 
-        "open": true, 
+      "draw": {
+        "open": true,
         "tools": ["picker", "polygon", "measure", "extent"]
       }
     }

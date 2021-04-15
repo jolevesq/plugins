@@ -16,6 +16,7 @@ export const loginmenu:string= `
     </md-input-container>
     <div class="rv-subsection">
         <md-button class="md-primary md-raised" style="float: right;"
+        (keyup.enter)="ctrl0.submitConn()"
         ng-click="ctrl0.submitConn()">
             {{ 'plugins.geosys.submit' | translate }}
             <md-tooltip>{{ 'plugins.geosys.submit' | translate }}</md-tooltip>
