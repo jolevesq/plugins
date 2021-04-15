@@ -36,13 +36,7 @@ export class Livraison{
     }
 
     submitFormSR(form:any, log:User){
-        let method:string;
-        if(this._typeConn === 'Update'){
-            method = 'Put';
-        }else{
-            method = 'Post'
-        }
-        let apire:any = this._conn.connexionAPIFormData(log.getToken(), form , log.constructUrl(urlDeliverySansPlan), method);
+        let apire:any = this._conn.connexionAPIFormData(log.getToken(), form , log.constructUrl(urlDeliverySansPlan), 'Post');
         //for test
         if(apire == 'success'){
             //alert( this.getinfo());

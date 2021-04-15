@@ -330,7 +330,7 @@
         "url_env": "http://132.156.9.78:8080/geosys-api/v1/systeme/envs",
         "base_theme": "10302"
       },
-      "draw": {  
+      "draw": {
         "open": true,
         "tools": ["picker", "polygon", "measure", "extent"]
       }

@@ -76,7 +76,10 @@ export default class Geosys {
             // Ajoute la fonction sous le controller au formulaire html
             this.userName = '';
             this.passwrd = '';
+            this.errlog = false;
+            this.loadercirc = false;
             this.submitConn = () => {
+                this.loadercirc = true;
                 // Prends les informations des input pour envoyer a l'API
                 let log: User = new User(this.userName, this.passwrd);
                 // Envoie le formulaire a l API
@@ -84,6 +87,10 @@ export default class Geosys {
                 // Si le retour ne contient pas de code d'erreur continue
                 if (loginfo.status === undefined) {
                     let menu: menuManager =  new menuManager(log, panel, mapApi);
+                }else{
+                    this.errlog = true;
+                    alert('Mauvais password or username');
+                    this.loadercirc = false;
                 }
             };
         });
@@ -139,6 +146,7 @@ Geosys.prototype.translations = {
         datefinprv: 'Final date planned',
         // Login seulement
         login: 'Login',
+        errlogin : 'Wrong username and/or password',
         username: 'username',
         password: 'password',
         // Livraison seulement
@@ -208,6 +216,7 @@ Geosys.prototype.translations = {
         datefinprv: 'Date de fin prévue',
         // Login seulement
         login: 'connexion :',
+        errlogin : 'Wrong username and/or password',
         username: 'nom d usager',
         password: 'mot de passe',
         // Livraison seulement

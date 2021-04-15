@@ -54,7 +54,6 @@ export class User{
      * @memberof User
      */
     constructUrl(url: string, adding: string = ''): string {
-        console.log("http://api.geosys-dev.services.geo.ca:30524/v1/" + url + adding)
         return /*this._urlEnvselected*/ "http://api.geosys-dev.services.geo.ca:30524/v1/" + url + adding
     }
     /**
@@ -74,9 +73,7 @@ export class User{
         // Set the data from the connexion
         if (data.status === undefined) {
             let json = '';
-            // Set environnement
             this.setDataFromAPI(data.access_token,data.token_type,data.expired, data.scope ,data.theme, data.equipe,config);
-            this.setListEnv(this._conn.connexionAPI(this.getToken(), json, config.url_env, 'Get'));
         } else {
             alert(data.status)
         }
@@ -97,7 +94,7 @@ export class User{
         for (let i in output.envs) {
             if (output.envs[i].env != 'DEV') {
                 this._envAcc.push(new Environnement(output.envs[i].env,output.envs[i].url))
-            }  
+            }
         }
         this.setEnvironnementSelected('DEV')
     }
@@ -106,13 +103,13 @@ export class User{
      * @param {string} env the environnement selected by the user
      * @memberof User
      */
-    setEnvironnementSelected(env: string) {        
+    setEnvironnementSelected(env: string) {
         for (let i in this._envAcc) {
             if (this._envAcc[i]._env === env) {
                 this._environnementSel = this._envAcc[i]._env;
                 this._urlEnvselected = this._envAcc[i]._urlEnv;
                 break;
-            } 
+            }
         }
     }
     /**
@@ -156,6 +153,10 @@ export class User{
         this._token = token;
         this._tokentype = token_type;
         this._expired = expired;
+
+        // Set environnement
+        this.setListEnv(this._conn.connexionAPI(this.getToken(), json, config.url_env, 'Get'));
+
         for (let i in scope) {
             this._right.push(new ApiReturn(scope[i]));
             let data = this._conn.connexionAPI(this.getToken(),json,this.constructUrl(urlGetCode,this._right[i].getId()),'Get');
@@ -176,13 +177,19 @@ export class User{
             this._themeAcc.push(new ApiReturn(ordertheme[i]));
             this.getinfoForCode(ordertheme[i],i)
         }
+        let basethemeString:string = ''
+        for (let i in this._themeAcc){
+            if(this._themeAcc[i].getId().toString() == this._baseTheme){
+                basethemeString = this._themeAcc[i].getnom()
+            }
+        }
         //set all form with the base theme
         this.callAPIWorkingUnit(this._baseTheme);
-        //this.callAPIListeClasse(this._baseTheme);
-        this.callAPIWorkingType(this._baseTheme);  
+        this.callAPIListeClasse(basethemeString);
+        this.callAPIWorkingType(this._baseTheme);
     }
     /**
-     * Call Api for a list of working unit 
+     * Call Api for a list of working unit
      * @param {string} theme The theme related to the working unit
      * @memberof User
      */
@@ -200,7 +207,9 @@ export class User{
         let resstheme: string = theme;
         let ressjson = this.createJsonRessources(resstheme/*,path*/);
         let data: any = this._conn.connexionAPI(this.getToken(), ressjson , this.constructUrl(urlClassesList),'Post');
-        this._classeslist = data.value.liste_classe;
+        this._classeslist = data.param_fgp_viewer.value.liste_classes;
+        console.log(data)
+        console.log(this._classeslist)
     }
     /**
      * call the API for a list of working type
@@ -208,6 +217,7 @@ export class User{
      * @memberof User
      */
     callAPIWorkingType(theme: string) {
+        console.log('type de travail'+theme)
         let json = '';
         let ttoutput: any = this._conn.connexionAPI(this.getToken(), json, this.constructUrl(urlWorkingType+ theme.toString()), 'Get');
         this._workinType = [];
@@ -229,12 +239,12 @@ export class User{
             if (theme[i] === config.base_theme.toString()) {
                 newtheme.push(theme[i]);
                 break;
-            } 
+            }
         }
         for (let i in theme) {
             if (theme[i] !== config.base_theme.toString()) {
                 newtheme.push(theme[i]);
-            }  
+            }
         }
         return newtheme
     }
@@ -268,7 +278,7 @@ export class User{
             list.push( { name: this._idUt._wUnit[j], value: this._idUt._wUnit[j]});
         }
 
-        return list;    
+        return list;
     }
     /**
      * build the list for the working type and
@@ -278,10 +288,13 @@ export class User{
      * @memberof User
      */
     setworkingtype(theme: string) {
+
+        console.log('pour la liste : ' + theme)
         //set the new url and get the connection
         if (theme.toString() !== this._baseThemeT.toString()) {
             this._baseThemeT = theme;
-            this.callAPIWorkingType(theme); 
+
+            this.callAPIWorkingType(theme);
         }
         let list = [];
         for (let j in this._workinType) {
@@ -292,20 +305,19 @@ export class User{
     }
     /**************** Reading Ressources files *********************/
     /**
-     * create a json file for getting a list of classes 
+     * create a json file for getting a list of classes
      * mostly hardcoded.
      * @param {string} theme the theme selected by the user (nom en string)
      * @returns {string} return a raw json
      * @memberof User
      */
     createJsonRessources(theme: string/*, path:string */): string {
-        console.log(theme)
         let output:any = {
             'fichiers': [
-              theme + ':ress.json'
+                this._environnementSel.toLowerCase() +'/ressources/themes/'+ theme + '/fgp_viewer_plugin_geosys.json'
             ],
             'chemin_recherche': [
-              'ressources/'+ theme +'/liste_classes'
+                'param_fgp_viewer'
             ]
           }
         let json:any = JSON.stringify(output)
@@ -317,10 +329,17 @@ export class User{
      * @memberof User
      */
     getlistofclasses(theme: string/*,path:string*/) {
+        console.log(theme)
         let listS = [];
         if (theme.toString() !== this._baseThemeC.toString()) {
             this._baseThemeC = theme;
-            this.callAPIListeClasse(theme);
+            let basethemeString:string = ''
+            for (let i in this._themeAcc){
+                if(this._themeAcc[i].getId().toString() == theme){
+                    basethemeString = this._themeAcc[i].getnom()
+                }
+            }
+            this.callAPIListeClasse(basethemeString);
         }
         for (let i in this._classeslist) {
             listS.push( { name: this._classeslist[i] , wanted: false });
