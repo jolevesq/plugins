@@ -22,6 +22,7 @@ export class ExtractController {
             this.selectedItemB = '';
             // file Type
             this.selectedItemC = '';
+            
             // Set up the theme list
             this.itemsA = [];
             for (let i in log.getThemeAcc()) {
@@ -42,8 +43,8 @@ export class ExtractController {
             /************** Advanced Setting ***************/
             this.ShowHideAdvanced = () => {
                 if (log.getEnvironnementSel() !== '') {
-                    this.IsVisibleASP = this.IsVisibleASP ? false : true; 
-                }  
+                    this.IsVisibleASP = this.IsVisibleASP ? false : true;
+                }
             };
             /************** interactive List Advanced Setting ***************/
             this.selectedItemENT = '';
@@ -53,20 +54,20 @@ export class ExtractController {
                 this.itemsENT.push( {name : log.getEnvAcc()[i]._env , value: log.getEnvAcc()[i]._env} );
             }
             /**************** From Submission ***************/
-            this.submitForm = () => { 
+            this.submitForm = () => {
                  console.log(this.selectedItemB)
                 // Get all the information of the form into the class
                 if (this.selectedItemB == '') {
                     this.ErrorEx = true;
                     log.setCloseable(false);
                 } else {
+                    console.log(this.selectedItemC)
                     log.setCloseable(true);
                     let ext = new Extraire(this.selectedItemA, this.selectedItemC, this.selectedItemB);
                     ext.setOptionnalEnvironnement(this.selectedItemENT);
                     let ApiReturn:any = ext.submitForm(log);
-                    
                     // If the conection to the API is a success
-                    if (ApiReturn != 'success') {
+                    if (ApiReturn == 'error') {
                         alert(ApiReturn.statusText);
                         log.setCloseable(false);
                     }
@@ -95,6 +96,14 @@ export class ExtractController {
             this.whereclause = '';
             // Geom Coordinates
             this.geomSR = ''
+            //param connexion
+            this.host =''
+            this.port =''
+            this.dbname =''
+            this.schema =''
+            this.password =''
+            this.usernameParCo =''
+            this.type_conn  =''
             // Set up the list of theme
             this.itemsA = [];
             for (let i in log.getThemeAcc()) {
@@ -109,7 +118,14 @@ export class ExtractController {
                 this.classes.length = 0;
                 // Add the new list in list for the template
                 this.classes = list
-                log.setbaseTheme(this.selectedItemA); 
+                log.setbaseTheme(this.selectedItemA);
+                this.host =log.gethost();
+                this.port =log.getport();
+                this.dbname =log.getdbname();
+                this.schema =log.getschema();
+                this.password =log.getdbpwd();
+                this.usernameParCo =log.getdbuser();
+                this.type_conn  =log.gettypeConn();
             }
             // Select all the classes in the list
             this.toggleAll = () => {
@@ -138,14 +154,14 @@ export class ExtractController {
                 this.inputchecked = false;
             }
             /************** Subscribe to the drawing event ***************/
-            // (<any>window).drawObs.drawPolygon.subscribe(value => {
-            //     // Create a geojson with the information obtain if the checkbox for drawinf is check
-            //     if (this.drawingchecked == true) {
-            //         log.createGeoJson('ESPG:'+ value.spatialReference.wkid,value.rings)
-            //         // Show the geo json in the input 
-            //         that.geomSR = log.getGeom(); 
-            //     }
-            // });
+            (<any>window).drawObs.drawPolygon.subscribe(value => {
+                // Create a geojson with the information obtain if the checkbox for drawinf is check
+                if (this.drawingchecked == true) {
+                    log.createGeoJson('ESPG:'+ value.spatialReference.wkid,value.rings)
+                    // Show the geo json in the input 
+                    that.geomSR = log.getGeom(); 
+                }
+            });
             /************** Shapefile load ***************/
             this.loadshpEX = () => {
                 // Get the files in the input
@@ -228,11 +244,18 @@ export class ExtractController {
                         siClip,
                         this.whereclause,
                         this.geomSR);
-                    extsr.setOptionnalEnvironnement(this.selectedItemENT);
+                    extsr.set_param_conn(this.host,
+                        this.port,
+                        this.dbname,
+                        this.schema,
+                        this.password,
+                        this.usernameParCo,
+                        this.type_conn);
+                    //extsr.setOptionnalEnvironnement(this.selectedItemENT);
                     // If the connection to the API is a Success
-                    let ApiReturn: any = extsr.submitForm(log);
+                    let ApiReturn: any = extsr.submitFormSR(log);
                     
-                    if (ApiReturn != 'success') {
+                    if (ApiReturn == 'error') {
                         alert(ApiReturn.statusText)
                         log.setCloseable(false);
                     }

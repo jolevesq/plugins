@@ -1,5 +1,5 @@
 import { urlgetidWu, urlEnvList,
-     urlClassesList,urlWorkingType, urlGetCode } from './config/url';
+     urlClassesList,urlWorkingType, urlGetCode,urlSuperUserAll } from './config/url';
 import { Connexion } from './apiConnect';
 import { IdWu } from './util/idWU';
 import { Environnement } from './util/environnement';
@@ -35,7 +35,14 @@ export class User{
     private _geom: string;
     private _advanced: boolean = false;
     private _closeable: boolean = true;
-
+    /** param connection**/
+    private _host: string;
+    private _dbname: string;
+    private _port: string;
+    private _schema: string;
+    private _dbuser: string;
+    private _dbpwd: string;
+    private _typeConn: string;
     /**
      * Creates an instance of User. with only the username and a password for the connections
      * @param {string} [username] Name of the user
@@ -54,7 +61,7 @@ export class User{
      * @memberof User
      */
     constructUrl(url: string, adding: string = ''): string {
-        return /*this._urlEnvselected*/ "http://api.geosys-dev.services.geo.ca:30524/v1/" + url + adding
+        return this._urlEnvselected /*"http://api.geosys-dev.services.geo.ca:30524/v1"*/ + url + adding
     }
     /**
      * With the connexion to the APi send a json file with the username and the password in the header to get
@@ -89,7 +96,7 @@ export class User{
             if (output.envs[i].env === 'DEV') {
                 this._envAcc.push(new Environnement(output.envs[i].env,output.envs[i].url))
                 break;
-            } 
+            }
         }
         for (let i in output.envs) {
             if (output.envs[i].env != 'DEV') {
@@ -172,6 +179,18 @@ export class User{
         this._baseThemeT = config.base_theme;
         this._baseThemeC = config.base_theme;
         // Order the theme
+        let newtheme:any;
+        console.log(theme);
+        if (theme[0] == "10315"){
+            let themejson= {"sql":"select id,nom from jmp.code where id_liste_codes=10300 and nom <> 'ALL' order by nom"}
+            newtheme =this._conn.connexionAPI(this.getToken(),JSON.stringify(themejson),this.constructUrl(urlSuperUserAll),'POST')
+            let listtheme = [];
+            for (let i in newtheme.RecordCollection){
+                listtheme[i] = newtheme.RecordCollection[i].id;
+            }
+            console.log(listtheme)
+            theme = listtheme
+        }
         let ordertheme: any =this.orderThemeList(theme,config);
         for (let i in ordertheme){
             this._themeAcc.push(new ApiReturn(ordertheme[i]));
@@ -210,6 +229,14 @@ export class User{
         this._classeslist = data.param_fgp_viewer.value.liste_classes;
         console.log(data)
         console.log(this._classeslist)
+        console.log(ressjson)
+        this.sethost(data.param_fgp_viewer.value.param_connexion.host)
+        this.setport(data.param_fgp_viewer.value.param_connexion.port)
+        this.setdbname(data.param_fgp_viewer.value.param_connexion.dbname)
+        this.setschema(data.param_fgp_viewer.value.param_connexion.schema)
+        this.setdbuser(data.param_fgp_viewer.value.param_connexion.username)
+        this.setdbpwd(data.param_fgp_viewer.value.param_connexion.password)
+        this.settypeConn(data.param_fgp_viewer.value.param_connexion.type_conn)
     }
     /**
      * call the API for a list of working type
@@ -217,7 +244,6 @@ export class User{
      * @memberof User
      */
     callAPIWorkingType(theme: string) {
-        console.log('type de travail'+theme)
         let json = '';
         let ttoutput: any = this._conn.connexionAPI(this.getToken(), json, this.constructUrl(urlWorkingType+ theme.toString()), 'Get');
         this._workinType = [];
@@ -565,5 +591,48 @@ export class User{
     }
     setEquipe(value: ApiReturn) {
         this._equipe = value;
+    }
+    
+    public gethost(): string {
+        return this._host;
+    }
+    public sethost(value: string) {
+        this._host = value;
+    }
+    public getdbname(): string {
+        return this._dbname;
+    }
+    public setdbname(value: string) {
+        this._dbname = value;
+    }
+    public getport(): string {
+        return this._port;
+    }
+    public setport(value: string) {
+        this._port = value;
+    }
+    public getschema(): string {
+        return this._schema;
+    }
+    public setschema(value: string) {
+        this._schema = value;
+    }
+    public getdbuser(): string {
+        return this._dbuser;
+    }
+    public setdbuser(value: string) {
+        this._dbuser = value;
+    }
+    public getdbpwd(): string {
+        return this._dbpwd;
+    }
+    public setdbpwd(value: string) {
+        this._dbpwd = value;
+    }
+    public gettypeConn(): string {
+        return this._typeConn;
+    }
+    public settypeConn(value: string) {
+        this._typeConn = value;
     }
 }

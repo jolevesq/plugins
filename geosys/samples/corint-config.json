@@ -326,8 +326,8 @@
     },
     "plugins": {
       "geosys": {
-        "url_login": "http://132.156.9.78:8080/geosys-api/v1/securite/login",
-        "url_env": "http://132.156.9.78:8080/geosys-api/v1/systeme/envs",
+        "url_login": "/geosys-api/v1/securite/login",
+        "url_env": "/geosys-api/v1/systeme/envs",
         "base_theme": "10302"
       },
       "draw": {

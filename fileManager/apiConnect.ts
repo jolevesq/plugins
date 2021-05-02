@@ -30,7 +30,7 @@ export class Connexion {
                 // Send the data in the promise
                 success: data => resolve(data)
             })
-        }) 
+        })
     }
 
     connexionAPIFileManagerTestDownload(token: string, urltogo: string, operation: string, content: string): any {
@@ -40,7 +40,7 @@ export class Connexion {
                 // URL of the API
                 url: urltogo,
                 xhrFields: {
-                    responseType: 'blob' 
+                    responseType: 'blob'
                 },
                 // The header with token and contentYpe
                 headers: {
@@ -53,7 +53,7 @@ export class Connexion {
                 // Send the data in the promise
                 success: data => resolve(data)
             })
-        }) 
+        })
     }
 
     connexionAPIFileManagerTestUpload(token: string, urltogo: string, operation: string, file: any ): any {
@@ -73,6 +73,6 @@ export class Connexion {
                 processData: false,
                 success: data => resolve(data)
             })
-        }) 
+        })
     }
 }

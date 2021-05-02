@@ -2,7 +2,7 @@ import { planifier } from "../operation/planifier";
 import { User } from "../user";
 export class PlanningController {
 
-    constructor() { };
+    constructor() {};
     /**
      *the controller for all the function in planning templates
      * @param {User} log All the information of the user
@@ -41,6 +41,9 @@ export class PlanningController {
             this.classes = [];
             //function ng-chage of the theme list
             this.setList = () => {
+                console.log('List')
+                console.log(this.itemsC)
+                console.log('selection wow : '+this.selectedItemC)
                 this.selectedItemD = '';
                 //set the today's date
                 let today = new Date();
@@ -57,6 +60,7 @@ export class PlanningController {
                 let slectedthem: string;
                 for (let i in this.itemsC) {
                     if (this.itemsC[i].value == this.selectedItemC) {
+                        console.log(this.itemsC[i].name)
                         slectedthem = this.itemsC[i].name;
                     }
                 }
@@ -74,6 +78,13 @@ export class PlanningController {
                 this.classes = list;
                 this.itemsD = listTT;
                 //log.setbaseTheme(this.selectedItemA);
+                this.host =log.gethost();
+                this.port =log.getport();
+                this.dbname =log.getdbname();
+                this.schema =log.getschema();
+                this.password =log.getdbpwd();
+                this.usernameParCo =log.getdbuser();
+                this.type_conn  =log.gettypeConn();
             }
             //for claases list select all the info
             this.toggleAll = () => {
@@ -103,14 +114,14 @@ export class PlanningController {
                 this.inputchecked = false;
             }
             //subscribe for the drawing
-            // (<any>window).drawObs.drawPolygon.subscribe(value => {
-            //     //create a geojson with the infromation obtain
-            //     if (this.drawingchecked == true) {
-            //         //show the geo json in the input 
-            //         this.geomp = JSON.stringify(value.rings);
-            //         this.geomEPSG = value.spatialReference.wkid;
-            //     }
-            // });
+            (<any>window).drawObs.drawPolygon.subscribe(value => {
+                //create a geojson with the infromation obtain
+                if (this.drawingchecked == true) {
+                    //show the geo json in the input
+                    this.geomp = JSON.stringify(value.rings);
+                    this.geomEPSG = value.spatialReference.wkid;
+                }
+            });
             /************** Shapefile Load ***************/
             this.loadshp = () => {
                 let files: any = (<HTMLInputElement>document.getElementById('fileshp')).files
@@ -163,7 +174,7 @@ export class PlanningController {
                     this.errclass = true;
                     log.setCloseable(false);
                 } else {
-                    //set the information in the the json 
+                    //set the information in the the json
                     log.createGeoJson('EPSG:' + this.geomEPSG, JSON.parse(this.geomp))
                     log.setCloseable(true);
                     let plan: planifier = new planifier(
@@ -184,8 +195,8 @@ export class PlanningController {
                     //submit the form to the API
                     let ApiReturn: any = plan.submitForm(log);
                     //If the return isn't a succes
-                    if (ApiReturn != 'success') {
-                        alert(ApiReturn.status)
+                    if (ApiReturn == 'error') {
+                        alert(ApiReturn.status);
                         log.setCloseable(false);
                     }
                 }

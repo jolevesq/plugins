@@ -19,7 +19,7 @@ export class FileController {
             // Set le starting Folder et toujours placer Root pour le premier paramètre
             let tfm: FileMana = new FileMana('root', '/dev/travail/themes/HYDRO_50K');
             // Set les Urls
-            tfm.setUrl('hello', /*'http://127.0.0.1:4010/'*/'http://api.geosys-dev.services.geo.ca:30524/v1/', urlListFile, urlFolderAction, urlFileAction, urlFileActionUpload);
+            tfm.setUrl('', /*'http://127.0.0.1:4010/'*/'http://api.geosys-dev.services.geo.ca:30524/v1', urlListFile, urlFolderAction, urlFileAction, urlFileActionUpload);
             //permet d'afficher ou chacher le formulaire en cliquant sur le titre
             this.OpenFileManager = () => {
                 // Check if an environnment is selected

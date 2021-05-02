@@ -128,7 +128,7 @@ export class FileMana {
                         <span class="Geosys-size-File-Folder Geosys-lilPad">{{ file.size }} KB</span>
                         <div class="Geosys-downloadbtn" ng-click="ctrl11.deleteFile(file)"><i class="material-icons">delete</i></div>
                         <div class="Geosys-downloadbtn" ng-click="ctrl11.downloadFile(file)"><i style="padding-top: 2px;" class="material-icons">get_app</i></div>
-                    </div>       
+                    </div>
                 </md-list-item>
                 <div class="Geosys-hidden-upload">
                     <input class="Geosys-hidden-upload" type="file"
@@ -397,8 +397,8 @@ export class FileMana {
             // Check if the operation is completed
             console.log("the new folder " + foldername + " will be created in " + pathforfolder);
             console.log(values);
-            
-        }); 
+
+        });
     }
     /**
      * Set all the url from the config or the parameter of the function
@@ -512,5 +512,4 @@ export class FileMana {
     getFileUAction(): string {
         return this._fileUpload;
     }
-    
 }

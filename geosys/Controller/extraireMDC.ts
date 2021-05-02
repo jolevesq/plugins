@@ -1,4 +1,5 @@
 import { User } from "../user";
+import { ExtraireMD } from "../operation/extraireMD"
 //import { Cancel } from "../operation/cancel";
 
 
@@ -23,19 +24,19 @@ export class ExtraireMDController {
             this.selectedItem = '';
            
             /**************** From Submission ***************/
-             this.submiteMD = () => { 
+             this.submiteMD = () => {
                 //get all the information of the form into the class
-                /*let ext = new Extraire(
+                let ext = new ExtraireMD(
                      this.selectedItemA
-                    ,this.selectedItemB);     
+                    ,this.selectedItemB);
                 let ApiReturn:any = ext.submitForm(log);
                 log.resetBaseTheme();
-                if (ApiReturn != 'success'){
+                if (ApiReturn == 'error'){
                     alert(ApiReturn.statusText)
                 }
-                }*/
-                //alert(this._ApiReturn.value);    
-            };
+            }
+                //alert(this._ApiReturn.value);
+            
         });
     }
 }

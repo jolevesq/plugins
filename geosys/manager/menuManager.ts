@@ -277,7 +277,7 @@ export class menuManager{
         this._validate.valiControl(log,mapApi);
         let output = validateform;
         return output;
-    
+
     }
 
 

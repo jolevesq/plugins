@@ -45,7 +45,7 @@ export class Connexion {
     /**
      * connection to the Api with ajax and promises
      * @param {string} token the token for the connection
-     * @param {*} jsonstring the body in json 
+     * @param {*} jsonstring the body in json
      * @param {string} urlgoto the url to jion the API
      * @param {string} typeConn the type of connection Get, Post, put ...
      * @returns {*} return all the information we get from the Api
@@ -82,15 +82,16 @@ export class Connexion {
                         }
                     },
                     error: (response,xhr) => {
-                        console.log(response.responseJSON.message)
+                        alert(response.responseJSON.message)
+                        console.log(xhr)
                         outputValue = xhr;
                     }
                 })
             })
         );
         Promise.all(promises).then(values => {
-            console.log(values);
-        });        
+            values;
+        });
         return outputValue;
     };
    /**
@@ -121,7 +122,7 @@ export class Connexion {
                     contentType: false,
                     processData: false,
                     success: //data => resolve()
-                    function(response, jqXHR) {     
+                    function(response, jqXHR) {
                         if (response.message !== undefined) {
                             outputValue = jqXHR;
                         } else {
@@ -129,6 +130,8 @@ export class Connexion {
                         }
                     },
                     error: (response,xhr) => {
+                        alert(response.responseJSON.message)
+                        console.log(xhr)
                         console.log(response.responseJSON.message)
                         outputValue = xhr;
                     }

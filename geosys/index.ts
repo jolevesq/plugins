@@ -37,12 +37,12 @@ export default class Geosys {
             // Alert(this.mapApi.layer);
             this._RV.toggleSideNav('close');
             // Open the panel
-            this.panel.open();  
+            this.panel.open();
         };
     }
     /**
      * Création du panel pour le plugins et ensuite ajoute le formulaire pou la connexion 
-     * de l'utilisateur 
+     * de l'utilisateur
      * @memberof Geosys
      */
     addLoginPanel(): void {

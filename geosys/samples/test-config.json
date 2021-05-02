@@ -269,7 +269,7 @@
       "geosys": {
         "url_login": "http://api.geosys-dev.services.geo.ca:30524/v1/securite/login",
         "url_env": "http://api.geosys-dev.services.geo.ca:30524/v1/systeme/envs",
-        "base_theme": "10301"
+        "base_theme": "10312"
       },
       "draw": {
         "open": true,

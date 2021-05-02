@@ -11,7 +11,7 @@ export class FileManagerController {
      * @param {FileMana} tfm the object File Manager to keep where you are in a repository
      * @memberof FileManagerController
      */
-    fileManagercontrols(token: string, mapApi: any, tfm: FileMana, panel: any, panel1: any): void {  
+    fileManagercontrols(token: string, mapApi: any, tfm: FileMana, panel: any, panel1: any): void {
         //if the panel already exist
         this.panel = panel;
         this.panel1 = panel1;
@@ -27,8 +27,8 @@ export class FileManagerController {
             tfm.setValue(values);
             fmc.FileManaManager(token,mapApi, tfm, this.panel, this.panel1);
             this.panel.body = output;
-        });   
-        this.panel.open(); 
+        });
+        this.panel.open();
     };
     /**
      * Create the panel body when a folder is clicked
@@ -48,7 +48,7 @@ export class FileManagerController {
             this.files = tfm.buildFileList();
             //click on the left arrow to back one folder
             this.precedent = () => {
-                let rank = tfm.getList().length - 2 
+                let rank = tfm.getList().length - 2
                 if (rank >= 0) {
                     panel.body = tfm.buildHeaderFileManager() + `<br/><div class="loader"></div>` + '<div>';
                     tfm.setbreacrumbsForNav(rank.toString());

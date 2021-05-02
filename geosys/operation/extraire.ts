@@ -21,6 +21,14 @@ export class Extraire{
     //data from API
     _data:any;
     _envopt:string = '';
+    // param connexion
+    _host:string ='';
+    _port:string = '';
+    _dbname:string = '';
+    _schema:string = '';
+    _password:string = '';
+    _username:string = '';
+    _type_conn:string ='';
     
     
     /************* Constructor *************/
@@ -36,10 +44,21 @@ export class Extraire{
      */
     constructor(theme:string, type:string, idUT?:string, clip?:string,whereClause?:string, geom?:string){
         this._theme = theme;
+        this._type = type;
         this._idUT = idUT;
         this._clip = clip;
         this._whereClause = whereClause;
         this._geom = geom;
+    }
+
+    set_param_conn(host:string, port:string, dbname:string, schema:string, password:string, username:string, type_conn:string){
+        this._host = host;
+        this._port = port;
+        this._dbname = dbname;
+        this._schema = schema;
+        this._password= password;
+        this._username = username;
+        this._type_conn = type_conn;
     }
 
     /************* Methods *************/
@@ -55,20 +74,30 @@ export class Extraire{
         //create a json and save the file in the download folder 
         let url:string;
         //if idUt is empty send an unplanned extract
-        if(this._idUT === ""){
-            this.getInformationToJsonSR();
-            url = log.constructUrl(urlgeoDataGet);
-            //alert(this.getJson())
-        //if idUt is set sent the idUt in the url and the json is empty
-        }else{
-            url = log.constructUrl(urlgeoDatGetId + this._idUT + '?format_fichier_data='+this._type);
-            //alert('extract planned')
-        }
+        
+        url = log.constructUrl(urlgeoDatGetId + this._idUT + '?format_fichier_data='+this._type);
+        //alert('extract planned')
+        
         //Call to the Api
         console.log(this._envopt)
         this.setData(this._conn.connexionAPI(log.getToken(), this.getJson(), url, 'Get',this._envopt));
         return this.getData();
    };
+
+
+    submitFormSR(log:User):any{
+        //create a json and save the file in the download folder 
+        let url:string;
+        //if idUt is empty send an unplanned extract
+        this.getInformationToJsonSR();
+        url = log.constructUrl(urlgeoDataGet);
+            //alert(this.getJson())
+        //if idUt et sent the idUt in the url and the json is empty
+        //Call to the Api
+        console.log(this._envopt)
+        this.setData(this._conn.connexionAPI(log.getToken(), this.getJson(), url, 'POST',this._envopt));
+        return this.getData();
+    };
 
 
    /**
@@ -106,11 +135,20 @@ export class Extraire{
     getInformationToJsonSR(){
         //get de properties
         let output:any = {
-            "theme": this._theme,
+            "theme": this._theme.toString(),
             "liste_classes": this._listClasses,
             "clip": this._clip,
             "where_clause" : this._whereClause,
-            "geom": this._geom
+            "geom": this._geom,
+            "param_connexion": {
+                "host": this._host.toString(),
+                "port": this._port.toString(),
+                "dbname": this._dbname.toString(),
+                "schema": this._schema.toString(),
+                "password": this._password.toString(),
+                "username": this._username.toString(),
+                "type_conn": this._type_conn.toString()
+            }
         };
         this._json = JSON.stringify(output)
     }

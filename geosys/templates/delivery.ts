@@ -45,7 +45,7 @@ export const formDelivery = `
                 <br/>
                 <md-input-container class="Geosys-largeur">
                     <label>MD_ID<span class="Geosys-errormess" ng-show="ctrl5.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
-                    <input type="text" name="mdid" id="mdid" ng-value="ctrl5.mdid" placeholder="MD_ID">
+                    <input type="text" name="mdid" id="mdid" ng-model="ctrl5.mdid" placeholder="MD_ID">
                 </md-input-container>
 
                 <md-input-container class="Geosys-ddlshowEX">

@@ -15,7 +15,7 @@ export class planifier{
     _typetravail: string;
     _classes: string[];
     _datefinpre: string;
-    _whereclause: string;  
+    _whereclause: string;
     _geom: string;
     _json:string = '';
     _host:string ='';
@@ -57,11 +57,11 @@ export class planifier{
         this._schema = schema;
         this._password= password;
         this._username = username;
-        this._type_conn = username;
+        this._type_conn = type_conn;
     }
     /************* Methods *************/
     /**
-     *Send a json to the API and return with the information 
+     *Send a json to the API and return with the information
      *
      * @param {User} log les parametre de l'utilisateur de la classe user
      * @returns {*} retourne les informations de l'API si le fromulaire a été envoyé avec succès ou non
@@ -73,7 +73,6 @@ export class planifier{
         //what we get from the API
         return this.getdata();
     }
-   
     /**
      * Transfrome les infromation du formulaire en fichier raw json
      * @param {User} log

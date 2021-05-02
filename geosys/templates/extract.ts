@@ -39,10 +39,10 @@ export const formExtraireP:string =
                     <md-select
                     ng-model="ctrl3.selectedItemC"
                     required>
-                        <md-option ng-value="GPKG">
+                        <md-option value="GPKG">
                             GPKG
                         </md-option>
-                        <md-option ng-value="GDB">
+                        <md-option value="FGDB">
                             FGDB
                         </md-option>
                     </md-select>
@@ -147,14 +147,53 @@ export const formExtraireSR:string =
                     <md-select
                     ng-model="ctrl4.selectedItemB"
                     required>
-                        <md-option ng-value="GPKG">
+                        <md-option value="GPKG">
                             GPKG
                         </md-option>
-                        <md-option ng-value="GDB">
+                        <md-option value="GDB">
                             FGDB
                         </md-option>
                     </md-select>
                 </md-input-container>
+                <br/>
+                <span style="margin-top: 0px;" class="Geosys-advanced">Connection settings</span>
+                <br/>
+                <div class='Geosys-geom-Menu'>
+                    <md-input-container class="Geosys-largeur">
+                        <label>Host<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="host" id="host" ng-model="ctrl4.host" placeholder="Host">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>Port<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="port" id="port" ng-model="ctrl4.port" placeholder="port">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>dbname<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="dbname" id="dbname" ng-model="ctrl4.dbname" placeholder="dbname">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>schema<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="schema" id="schema" ng-model="ctrl4.schema" placeholder="schema">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>password<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="password" id="password" ng-model="ctrl4.password" placeholder="password">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>username<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="usernameParCo" id="usernameParCo" ng-model="ctrl4.usernameParCo" placeholder="usernameParCo">
+                    </md-input-container>
+                    <md-input-container class="Geosys-largeur">
+                        
+                        <label>type_conn<span class="Geosys-errormess" ng-show="ctrl4.erridwuvs">{{ 'plugins.geosys.errorWU' | translate }}</span></label>
+                        <input type="text" name="type_conn" id="type_conn" ng-model="ctrl4.type_conn" placeholder="type_conn">
+                    </md-input-container>
+                </div>
 
                 <div ng-show="ctrl1.AdvancedVisible" ng-click="ctrl4.ShowHideAdvanced()" class="Geosys-advanced">
                     <span>Advanced Settings</span>

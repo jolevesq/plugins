@@ -59,7 +59,7 @@ export class DeliveryController{
                 this.itemsENT.push( {name : log.getEnvAcc()[i]._env , value: log.getEnvAcc()[i]._env} );
             }
             //Envoie le formulaire a l'API
-            this.submitFormD = function() { 
+            this.submitFormD = function() {
                 //get all the information of the form into the class
                 if ((<HTMLInputElement>document.getElementById('filefgdb')).files.length === 0) {
                     this.errFGDB = true;
@@ -69,13 +69,13 @@ export class DeliveryController{
                     log.setCloseable(true);
                     formdata.append('format_fichier_data',this.selectedItemR);
                     formdata.append('md_id',this.mdid);
-                    formdata.append('fichier_data',(<HTMLInputElement>document.getElementById('fileMD')).files[0]);
-                    formdata.append('fichier_meta',(<HTMLInputElement>document.getElementById('filefgdb')).files[0]);
+                    formdata.append('fichier_data',(<HTMLInputElement>document.getElementById('filefgdb')).files[0]);
+                    formdata.append('fichier_meta',(<HTMLInputElement>document.getElementById('fileMD')).files[0]);
                     let livre:Livraison = new Livraison(this.selectedItemF,this.selectedItemE,this.typeOper);
                     livre.setOptionnalEnvironnement(this.selectedItemENT);
                     //submit form
                     let ApiReturn:any = livre.submitForm(formdata,log);
-                       
+                    console.log(formdata)
                     if (ApiReturn != undefined) {
                         log.setCloseable(false);
                         alert(ApiReturn);
@@ -126,6 +126,13 @@ export class DeliveryController{
                     this.itemsF.push(list[i])
                 }
                 //log.setbaseTheme(this.selectedItemE);
+                this.host =log.gethost();
+                this.port =log.getport();
+                this.dbname =log.getdbname();
+                this.schema =log.getschema();
+                this.password =log.getdbpwd();
+                this.usernameParCo =log.getdbuser();
+                this.type_conn  =log.gettypeConn();
             }
 
              // Checkbox behave like radio button
@@ -144,14 +151,14 @@ export class DeliveryController{
                 this.inputchecked = false;
             }
             //subscribe for the drawing
-            // (<any>window).drawObs.drawPolygon.subscribe(value => {
-            //     //create a geojson with the infromation obtain
-            //     if (this.drawingchecked == true) {
-            //         //show the geo json in the input 
-            //         this.geomp = JSON.stringify(value.rings);
-            //         this.geomEPSG = value.spatialReference.wkid;
-            //     }
-            // });
+            (<any>window).drawObs.drawPolygon.subscribe(value => {
+                //create a geojson with the infromation obtain
+                if (this.drawingchecked == true) {
+                    //show the geo json in the input 
+                    this.geomp = JSON.stringify(value.rings);
+                    this.geomEPSG = value.spatialReference.wkid;
+                }
+            });
             /************** Shapefile Load ***************/
             this.loadshp = () => {
                 let files: any = (<HTMLInputElement>document.getElementById('fileshp')).files
